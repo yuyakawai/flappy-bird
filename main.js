@@ -31,6 +31,11 @@ const canvas = {
   height: screenContainer.height,
 };
 
+const images = [
+  { name: "bird", path: "image/bird.png", element: null },
+  { name: "heart", path: "image/heart.png", element: null },
+];
+
 const init = () => {
   mainContainer.element = document.getElementById("main-container");
   mainContainer.element.style.position = "relative";
@@ -71,6 +76,30 @@ const init = () => {
   canvas.element.height = canvas.height;
   canvas.context.fillStyle = "lightblue";
   canvas.context.fillRect(0, 0, canvas.width, canvas.height);
+
+  loadImages();
+  draw();
+};
+
+const loadImages = () => {
+  images.forEach((image) => {
+    image.element = new Image();
+    console.log(image.element);
+    image.element.src = image.path;
+    image.element.onload = () => {};
+  });
+};
+
+const draw = () => {
+  canvas.context.beginPath();
+  canvas.context.fillStyle = "lightblue";
+  canvas.context.fillRect(0, 0, canvas.width, canvas.height);
+
+  canvas.context.drawImage(
+    images.find((image) => image.name === "heart").element,
+    0,
+    0
+  );
 };
 
 const bird = {
@@ -187,6 +216,7 @@ const tick = () => {
     //TODO
   }
 
+  draw();
   requestAnimationFrame(tick);
 };
 
