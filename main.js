@@ -31,9 +31,13 @@ const canvas = {
   height: screenContainer.height,
 };
 
+const loader = {
+  element: null,
+};
+
 const images = [
-  { name: "bird", path: "image/bird.png", element: null },
-  { name: "heart", path: "image/heart.png", element: null },
+  { name: "bird", path: "image/bird.png", element: null, isLoaded: false },
+  { name: "heart", path: "image/heart.png", element: null, isLoaded: false },
 ];
 
 const init = () => {
@@ -67,6 +71,11 @@ const init = () => {
   screenContainer.element.style.backgroundColor = "black";
   mainContainer.element.appendChild(screenContainer.element);
 
+  loader.element = document.createElement("div");
+  loader.element.classList.add("loader");
+  loader.element.style.position = "absolute";
+  screenContainer.element.appendChild(loader.element);
+
   canvas.element = document.createElement("canvas");
   canvas.element.style.cursor = "pointer";
   screenContainer.element.appendChild(canvas.element);
@@ -86,11 +95,17 @@ const loadImages = () => {
     image.element = new Image();
     console.log(image.element);
     image.element.src = image.path;
-    image.element.onload = () => {};
+    image.element.onload = () => {
+      image.isLoaded = true;
+    };
   });
 };
 
 const draw = () => {
+  if (images.some((image) => image.isLoaded === false)) {
+    return;
+  }
+
   canvas.context.beginPath();
   canvas.context.fillStyle = "lightblue";
   canvas.context.fillRect(0, 0, canvas.width, canvas.height);
