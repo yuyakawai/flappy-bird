@@ -1,12 +1,47 @@
 .loader {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: solid 4px;
-  border-color: #000000 #00000010 #00000010;
   position: relative;
-  animation-name: spin;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #7557f8;
+  color: #7557f8;
+  animation: loader 1s infinite linear alternate;
+  animation-delay: 0.5s;
+}
+.loader::before,
+.loader::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+.loader::before {
+  left: -15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #7557f8;
+  color: #7557f8;
+  animation: loader 1s infinite alternate;
+  animation-delay: 0s;
+}
+.loader::after {
+  left: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #7557f8;
+  color: #7557f8;
+  animation: loader 1s infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes loader {
+  0% {
+    background-color: #7557f8;
+  }
+  50%,
+  100% {
+    background-color: rgba(152, 128, 255, 0.2);
+  }
 }

@@ -75,6 +75,7 @@ const init = () => {
   loader.element.classList.add("loader");
   loader.element.style.position = "absolute";
   screenContainer.element.appendChild(loader.element);
+  console.log(loader.element);
 
   canvas.element = document.createElement("canvas");
   canvas.element.style.cursor = "pointer";
@@ -93,7 +94,6 @@ const init = () => {
 const loadImages = () => {
   images.forEach((image) => {
     image.element = new Image();
-    console.log(image.element);
     image.element.src = image.path;
     image.element.onload = () => {
       image.isLoaded = true;
@@ -105,10 +105,13 @@ const draw = () => {
   if (images.some((image) => image.isLoaded === false)) {
     return;
   }
+  loader.element.style.display = "none";
 
   canvas.context.beginPath();
   canvas.context.fillStyle = "lightblue";
-  canvas.context.fillRect(0, 0, canvas.width, canvas.height);
+  canvas.context.fillRect(0, 0, canvas.width, canvas.height * 0.8);
+  canvas.context.fillStyle = "green";
+  canvas.context.fillRect(0, canvas.height * 0.8, canvas.width, canvas.height);
 
   canvas.context.drawImage(
     images.find((image) => image.name === "heart").element,
