@@ -35,7 +35,7 @@ const loaderContainer = { progressBarElement: null, messageElement: null };
 
 const images = [
   { name: "bird", path: "image/bird.png", element: null, isLoaded: false },
-  { name: "heart", path: "image/hear.png", element: null, isLoaded: false },
+  { name: "heart", path: "image/heart.png", element: null, isLoaded: false },
 ];
 
 const init = () => {
@@ -108,7 +108,8 @@ const draw = () => {
   if (images.some((image) => image.isLoaded === false)) {
     return;
   }
-  loader.element.style.display = "none";
+  loaderContainer.progressBarElement.style.display = "none";
+  loaderContainer.messageElement.style.display = "none";
 
   canvas.context.beginPath();
   canvas.context.fillStyle = "lightblue";
@@ -121,6 +122,15 @@ const draw = () => {
     0,
     0
   );
+
+  canvas.context.beginPath();
+  canvas.context.moveTo(50, 400);
+  canvas.context.bezierCurveTo(100, 275, 200, 275, 250, 400);
+  canvas.context.fillStyle = "#2f4f4f";
+  canvas.context.fill();
+  canvas.context.stroke();
+
+  canvas.context.closePath();
 };
 
 const bird = {
