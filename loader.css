@@ -1,42 +1,48 @@
-.loader {
-  position: relative;
+.progress-bar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background-color: #7557f8;
   color: #7557f8;
-  animation: loader 1s infinite linear alternate;
+  animation: progress-bar 1s infinite linear alternate;
   animation-delay: 0.5s;
 }
-.loader::before,
-.loader::after {
+
+.progress-bar::before,
+.progress-bar::after {
   content: "";
   display: inline-block;
   position: absolute;
   top: 0;
 }
-.loader::before {
+
+.progress-bar::before {
   left: -15px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background-color: #7557f8;
   color: #7557f8;
-  animation: loader 1s infinite alternate;
+  animation: progress-bar 1s infinite alternate;
   animation-delay: 0s;
 }
-.loader::after {
+
+.progress-bar::after {
   left: 15px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background-color: #7557f8;
   color: #7557f8;
-  animation: loader 1s infinite alternate;
+  animation: progress-bar 1s infinite alternate;
   animation-delay: 1s;
 }
 
-@keyframes loader {
+@keyframes progress-bar {
   0% {
     background-color: #7557f8;
   }
@@ -44,4 +50,14 @@
   100% {
     background-color: rgba(152, 128, 255, 0.2);
   }
+}
+
+.message {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  top: 53%;
+  color: #4a2ad5;
 }

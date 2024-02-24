@@ -31,13 +31,11 @@ const canvas = {
   height: screenContainer.height,
 };
 
-const loader = {
-  element: null,
-};
+const loaderContainer = { progressBarElement: null, messageElement: null };
 
 const images = [
   { name: "bird", path: "image/bird.png", element: null, isLoaded: false },
-  { name: "heart", path: "image/heart.png", element: null, isLoaded: false },
+  { name: "heart", path: "image/hear.png", element: null, isLoaded: false },
 ];
 
 const init = () => {
@@ -71,11 +69,16 @@ const init = () => {
   screenContainer.element.style.backgroundColor = "black";
   mainContainer.element.appendChild(screenContainer.element);
 
-  loader.element = document.createElement("div");
-  loader.element.classList.add("loader");
-  loader.element.style.position = "absolute";
-  screenContainer.element.appendChild(loader.element);
-  console.log(loader.element);
+  loaderContainer.progressBarElement = document.createElement("div");
+  loaderContainer.progressBarElement.classList.add("progress-bar");
+  loaderContainer.progressBarElement.style.position = "absolute";
+
+  loaderContainer.messageElement = document.createElement("div");
+  loaderContainer.messageElement.classList.add("message");
+  loaderContainer.messageElement.textContent = "読み込み中...";
+
+  screenContainer.element.appendChild(loaderContainer.progressBarElement);
+  screenContainer.element.appendChild(loaderContainer.messageElement);
 
   canvas.element = document.createElement("canvas");
   canvas.element.style.cursor = "pointer";
