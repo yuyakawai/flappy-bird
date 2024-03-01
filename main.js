@@ -113,23 +113,38 @@ const draw = () => {
 
   canvas.context.beginPath();
   canvas.context.fillStyle = "lightblue";
+  canvas.context.globalAlpha = 1;
   canvas.context.fillRect(0, 0, canvas.width, canvas.height * 0.8);
   canvas.context.fillStyle = "green";
   canvas.context.fillRect(0, canvas.height * 0.8, canvas.width, canvas.height);
-
+  canvas.context.closePath();
   canvas.context.drawImage(
     images.find((image) => image.name === "heart").element,
     0,
     0
   );
 
+  // mountain
   canvas.context.beginPath();
-  canvas.context.moveTo(50, 400);
-  canvas.context.bezierCurveTo(100, 275, 200, 275, 250, 400);
+  canvas.context.moveTo(50, 390);
+  canvas.context.lineTo(130, 290);
+  canvas.context.quadraticCurveTo(140, 280, 150, 290);
+  canvas.context.lineTo(230, 390);
+  canvas.context.strokeStyle = "#2f4f4f";
   canvas.context.fillStyle = "#2f4f4f";
+  canvas.context.globalAlpha = 0.95;
   canvas.context.fill();
   canvas.context.stroke();
+  canvas.context.closePath();
 
+  // cloud
+  canvas.context.beginPath();
+  canvas.context.ellipse(100, 100, 70, 25, 0, 0, 2 * Math.PI);
+  canvas.context.strokeStyle = "#ffffff";
+  canvas.context.fillStyle = "#ffffff";
+  canvas.context.globalAlpha = 0.7;
+  canvas.context.fill();
+  canvas.context.stroke();
   canvas.context.closePath();
 };
 
