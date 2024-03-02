@@ -160,6 +160,10 @@ const draw = () => {
     200
   );
 
+  // bird
+  bird.update();
+  bird.draw();
+
   // mountain
   canvas.context.beginPath();
   canvas.context.moveTo(50, 390);
@@ -186,15 +190,22 @@ const draw = () => {
 
 const bird = {
   element: null,
-  x: 0,
-  y: 0,
-  width: 0,
-  height: 0,
+  x: 200,
+  y: 200,
+  width: 32,
+  height: 32,
   init: () => {},
 
   update: () => {
-    bird.element.style.left = bird.x + "px";
-    bird.element.style.top = bird.y + "px";
+    bird.y++;
+  },
+
+  draw: () => {
+    canvas.context.drawImage(
+      images.find((image) => image.name === "bird").element,
+      bird.x,
+      bird.y
+    );
   },
 };
 
@@ -236,6 +247,8 @@ const tick = () => {
   if (gameStatus.isGameStart) {
     //TODO
   }
+
+  images.find((image) => image.name === "bird").element.naturalWidth;
 
   draw();
   requestAnimationFrame(tick);
