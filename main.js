@@ -24,6 +24,12 @@ const screenContainer = {
   height: mainContainer.height - 10,
 };
 
+const debugContainer = {
+  element: null,
+  width: 240,
+  height: 32,
+};
+
 const canvas = {
   element: null,
   context: null,
@@ -97,9 +103,10 @@ const init = () => {
   loaderContainer.messageElement = document.createElement("div");
   loaderContainer.messageElement.classList.add("message");
   loaderContainer.messageElement.textContent = "読み込み中...";
-
   screenContainer.element.appendChild(loaderContainer.progressBarElement);
   screenContainer.element.appendChild(loaderContainer.messageElement);
+
+  controller.init();
 
   canvas.element = document.createElement("canvas");
   canvas.element.style.cursor = "pointer";
@@ -115,6 +122,29 @@ const init = () => {
   draw();
 };
 
+const controller = {
+  isPressed: false,
+  init: () => {
+    const handleButtonDown = (e) => {
+      e.preventDefault();
+      controller.isPressed = true;
+    };
+
+    const handleButtonUp = (e) => {
+      e.preventDefault();
+      controller.isPressed = false;
+    };
+
+    if (window.ontouchstart === null) {
+      screenContainer.element.ontouchstart = handleButtonDown;
+      screenContainer.element.ontouchend = handleButtonUp;
+    } else {
+      screenContainer.element.onpointerdown = handleButtonDown;
+      screenContainer.element.onpointerup = handleButtonUp;
+    }
+  },
+};
+
 const loadImages = () => {
   images.forEach((image) => {
     image.element = new Image();
@@ -123,6 +153,10 @@ const loadImages = () => {
       image.isLoaded = true;
     };
   });
+};
+
+const world = {
+  x: 0,
 };
 
 const draw = () => {
@@ -156,54 +190,61 @@ const draw = () => {
   );
   canvas.context.drawImage(
     images.find((image) => image.name === "balloon").element,
-    100,
+    100 - world.x,
     200
   );
+
+  // mountain
+  canvas.context.beginPath();
+  canvas.context.moveTo(50 - world.x, 390);
+  canvas.context.lineTo(130 - world.x, 290);
+  canvas.context.quadraticCurveTo(140 - world.x, 280, 150 - world.x, 290);
+  canvas.context.lineTo(230 - world.x, 390);
+  canvas.context.strokeStyle = "#2f4f4f";
+  canvas.context.fillStyle = "#2f4f4f";
+  canvas.context.globalAlpha = 1;
+  canvas.context.fill();
+  canvas.context.stroke();
+  canvas.context.closePath();
 
   // bird
   bird.update();
   bird.draw();
 
-  // mountain
-  canvas.context.beginPath();
-  canvas.context.moveTo(50, 390);
-  canvas.context.lineTo(130, 290);
-  canvas.context.quadraticCurveTo(140, 280, 150, 290);
-  canvas.context.lineTo(230, 390);
-  canvas.context.strokeStyle = "#2f4f4f";
-  canvas.context.fillStyle = "#2f4f4f";
-  canvas.context.globalAlpha = 0.95;
-  canvas.context.fill();
-  canvas.context.stroke();
-  canvas.context.closePath();
-
   // cloud
   canvas.context.beginPath();
-  canvas.context.ellipse(100, 100, 70, 25, 0, 0, 2 * Math.PI);
+  canvas.context.ellipse(100 - world.x, 100, 70, 25, 0, 0, 2 * Math.PI);
   canvas.context.strokeStyle = "#ffffff";
   canvas.context.fillStyle = "#ffffff";
   canvas.context.globalAlpha = 0.7;
   canvas.context.fill();
   canvas.context.stroke();
   canvas.context.closePath();
+
+  world.x++;
 };
 
 const bird = {
   element: null,
-  x: 200,
+  x: 50,
   y: 200,
   width: 32,
-  height: 32,
-  init: () => {},
-
+  height: 44,
   update: () => {
-    bird.y++;
+    bird.x++;
+    if (controller.isPressed) {
+      bird.y -= 4;
+    } else {
+      bird.y += 3;
+    }
+    bird.y = Math.max(0, Math.min(bird.y, canvas.height - 80));
   },
 
   draw: () => {
+    canvas.context.globalAlpha = 1;
     canvas.context.drawImage(
       images.find((image) => image.name === "bird").element,
-      bird.x,
+      bird.x - world.x,
       bird.y
     );
   },
@@ -247,8 +288,6 @@ const tick = () => {
   if (gameStatus.isGameStart) {
     //TODO
   }
-
-  images.find((image) => image.name === "bird").element.naturalWidth;
 
   draw();
   requestAnimationFrame(tick);
