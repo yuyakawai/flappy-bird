@@ -34,7 +34,12 @@ const canvas = {
 const loaderContainer = { progressBarElement: null, messageElement: null };
 
 const images = [
-  { name: "bird", path: "image/bird.png", element: null, isLoaded: false },
+  {
+    name: "bird",
+    path: "image/bird.png",
+    element: null,
+    isLoaded: false,
+  },
   {
     name: "heartFull",
     path: "image/heart_full.png",
@@ -191,67 +196,6 @@ const bird = {
     bird.element.style.left = bird.x + "px";
     bird.element.style.top = bird.y + "px";
   },
-};
-
-const cells = [...Array(cellRow * cellCol)].map((_, index) => {
-  return {
-    element: null,
-    number: index + 1,
-    isEmpty: false,
-    x: 0,
-    y: 0,
-    init: () => {
-      cells[index].x = index % cellRow;
-      cells[index].y = Math.trunc(index / cellRow);
-      cells[index].element = document.createElement("div");
-      cells[index].element.style.position = "absolute";
-      cells[index].element.style.width = cellSize + "px";
-      cells[index].element.style.height = cellSize + "px";
-      cells[index].element.style.left = cells[index].x * cellSize + "px";
-      cells[index].element.style.top = cells[index].y * cellSize + "px";
-      cells[index].element.style.border = "3px ridge #cb986f";
-      cells[index].element.style.backgroundColor = "#ccb28e";
-      cells[index].element.style.boxSizing = "border-box";
-      cells[index].element.style.fontSize = cellSize * 0.6 + "px";
-      cells[index].element.style.display = "flex";
-      cells[index].element.style.alignItems = "center";
-      cells[index].element.style.justifyContent = "center";
-      cells[index].element.style.cursor = "pointer";
-      cells[index].element.textContent = cells[index].number;
-      screenContainer.element.appendChild(cells[index].element);
-
-      if (index === cells.length - 1) {
-        cells[index].isEmpty = true;
-      }
-
-      const handleEvent = (selfObject) => {
-        return (e) => {
-          e.preventDefault();
-          if (
-            gameStatus.isGameStart === false ||
-            gameStatus.isGameClear ||
-            gameStatus.isGameOver
-          ) {
-            return;
-          }
-          selfObject.swapCell(selfObject);
-        };
-      };
-
-      if (window.ontouchstart === null) {
-        cells[index].element.ontouchstart = handleEvent(cells[index]);
-      } else {
-        cells[index].element.onpointerdown = handleEvent(cells[index]);
-      }
-    },
-
-    update: () => {},
-  };
-});
-
-const resetGame = () => {
-  gameStatus.startTime = performance.now();
-  cells[0].swapNumber();
 };
 
 const showGameClearMessage = () => {
