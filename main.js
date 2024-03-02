@@ -64,6 +64,12 @@ const images = [
     element: null,
     isLoaded: false,
   },
+  {
+    name: "scarecrow",
+    path: "image/scarecrow.png",
+    element: null,
+    isLoaded: false,
+  },
 ];
 
 const init = () => {
@@ -193,6 +199,11 @@ const draw = () => {
     100 - world.x,
     200
   );
+  canvas.context.drawImage(
+    images.find((image) => image.name === "scarecrow").element,
+    250 - world.x,
+    400
+  );
 
   // mountain
   canvas.context.beginPath();
@@ -207,7 +218,7 @@ const draw = () => {
   canvas.context.stroke();
   canvas.context.closePath();
 
-  // bird
+  // bird update
   bird.update();
   bird.draw();
 
@@ -221,7 +232,7 @@ const draw = () => {
   canvas.context.stroke();
   canvas.context.closePath();
 
-  world.x++;
+  world.x;
 };
 
 const bird = {
