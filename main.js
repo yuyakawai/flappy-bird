@@ -35,7 +35,24 @@ const loaderContainer = { progressBarElement: null, messageElement: null };
 
 const images = [
   { name: "bird", path: "image/bird.png", element: null, isLoaded: false },
-  { name: "heart", path: "image/heart.png", element: null, isLoaded: false },
+  {
+    name: "heartFull",
+    path: "image/heart_full.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
+    name: "heartEmpty",
+    path: "image/heart_empty.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
+    name: "balloon",
+    path: "image/balloon.png",
+    element: null,
+    isLoaded: false,
+  },
 ];
 
 const init = () => {
@@ -72,7 +89,6 @@ const init = () => {
   loaderContainer.progressBarElement = document.createElement("div");
   loaderContainer.progressBarElement.classList.add("progress-bar");
   loaderContainer.progressBarElement.style.position = "absolute";
-
   loaderContainer.messageElement = document.createElement("div");
   loaderContainer.messageElement.classList.add("message");
   loaderContainer.messageElement.textContent = "読み込み中...";
@@ -119,9 +135,24 @@ const draw = () => {
   canvas.context.fillRect(0, canvas.height * 0.8, canvas.width, canvas.height);
   canvas.context.closePath();
   canvas.context.drawImage(
-    images.find((image) => image.name === "heart").element,
+    images.find((image) => image.name === "heartFull").element,
     0,
     0
+  );
+  canvas.context.drawImage(
+    images.find((image) => image.name === "heartFull").element,
+    32,
+    0
+  );
+  canvas.context.drawImage(
+    images.find((image) => image.name === "heartEmpty").element,
+    64,
+    0
+  );
+  canvas.context.drawImage(
+    images.find((image) => image.name === "balloon").element,
+    100,
+    200
   );
 
   // mountain
