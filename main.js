@@ -42,7 +42,7 @@ const loaderContainer = { progressBarElement: null, messageElement: null };
 const images = [
   {
     name: "birdWingUp",
-    path: "image/bird_wing _up.png",
+    path: "image/bird_wing_up.png",
     element: null,
     isLoaded: false,
   },
