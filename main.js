@@ -41,8 +41,8 @@ const loaderContainer = { progressBarElement: null, messageElement: null };
 
 const images = [
   {
-    name: "bird",
-    path: "image/bird.png",
+    name: "birdWingUp",
+    path: "image/bird_wing _up.png",
     element: null,
     isLoaded: false,
   },
@@ -254,7 +254,7 @@ const bird = {
   draw: () => {
     canvas.context.globalAlpha = 1;
     canvas.context.drawImage(
-      images.find((image) => image.name === "bird").element,
+      images.find((image) => image.name === "birdWingUp").element,
       bird.x - world.x,
       bird.y
     );
