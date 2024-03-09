@@ -293,11 +293,16 @@ const bird = {
       : bird.isWingUp
       ? "bird_wing_up"
       : "bird_wing_down";
+
+    canvas.context.save();
+    canvas.context.translate(bird.x, bird.y);
+    //canvas.context.rotate(bird.damageTime * 2 * (Math.PI / 180));
     canvas.context.drawImage(
       images.find((image) => image.name === imageName).element,
-      bird.x - world.x,
-      bird.y
+      0,
+      0
     );
+    canvas.context.restore();
   },
 
   checkCollision: () => {
