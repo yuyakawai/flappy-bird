@@ -41,19 +41,31 @@ const loaderContainer = { progressBarElement: null, messageElement: null };
 
 const images = [
   {
-    name: "birdWingUp",
+    name: "bird_wing_up",
     path: "image/bird_wing_up.png",
     element: null,
     isLoaded: false,
   },
   {
-    name: "heartFull",
+    name: "bird_wing_down",
+    path: "image/bird_wing_down.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
+    name: "bird_damage",
+    path: "image/bird_damage.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
+    name: "heart_full",
     path: "image/heart_full.png",
     element: null,
     isLoaded: false,
   },
   {
-    name: "heartEmpty",
+    name: "heart_empty",
     path: "image/heart_empty.png",
     element: null,
     isLoaded: false,
@@ -125,6 +137,10 @@ const init = () => {
   canvas.context.fillRect(0, 0, canvas.width, canvas.height);
 
   loadImages();
+  setScarecrow(300, 400);
+  setScarecrow(500, 400);
+  setScarecrow(700, 400);
+
   draw();
 };
 
@@ -179,30 +195,11 @@ const draw = () => {
   canvas.context.fillStyle = "green";
   canvas.context.fillRect(0, canvas.height * 0.8, canvas.width, canvas.height);
   canvas.context.closePath();
-  canvas.context.drawImage(
-    images.find((image) => image.name === "heartFull").element,
-    0,
-    0
-  );
-  canvas.context.drawImage(
-    images.find((image) => image.name === "heartFull").element,
-    32,
-    0
-  );
-  canvas.context.drawImage(
-    images.find((image) => image.name === "heartEmpty").element,
-    64,
-    0
-  );
+
   canvas.context.drawImage(
     images.find((image) => image.name === "balloon").element,
     100 - world.x,
     200
-  );
-  canvas.context.drawImage(
-    images.find((image) => image.name === "scarecrow").element,
-    250 - world.x,
-    400
   );
 
   // mountain
@@ -222,6 +219,12 @@ const draw = () => {
   bird.update();
   bird.draw();
 
+  // life update
+  life.draw();
+
+  // scarecrow
+  drawScarecrow();
+
   // cloud
   canvas.context.beginPath();
   canvas.context.ellipse(100 - world.x, 100, 70, 25, 0, 0, 2 * Math.PI);
@@ -232,7 +235,23 @@ const draw = () => {
   canvas.context.stroke();
   canvas.context.closePath();
 
-  world.x;
+  world.x++;
+};
+
+const life = {
+  max: 5,
+  count: 5,
+  draw: () => {
+    canvas.context.globalAlpha = 1;
+    [...Array(life.max)].map((_, index) => {
+      const imageName = index < life.count ? "heart_full" : "heart_empty";
+      canvas.context.drawImage(
+        images.find((image) => image.name === imageName).element,
+        index * 32,
+        0
+      );
+    });
+  },
 };
 
 const bird = {
@@ -240,25 +259,82 @@ const bird = {
   x: 50,
   y: 200,
   width: 32,
-  height: 44,
+  height: 32,
+  isWingUp: true,
+  isDamage: false,
+  damageTime: 0,
+
   update: () => {
     bird.x++;
     if (controller.isPressed) {
+      bird.isWingUp = false;
       bird.y -= 4;
     } else {
+      bird.isWingUp = true;
       bird.y += 3;
     }
     bird.y = Math.max(0, Math.min(bird.y, canvas.height - 80));
+
+    if (bird.isDamage) {
+      bird.damageTime++;
+      if (bird.damageTime > 64) {
+        bird.isDamage = false;
+        bird.damageTime = 0;
+      }
+    } else {
+      bird.checkCollision();
+    }
   },
 
   draw: () => {
-    canvas.context.globalAlpha = 1;
+    canvas.context.globalAlpha = bird.isDamage ? 0.7 : 1;
+    const imageName = bird.isDamage
+      ? "bird_damage"
+      : bird.isWingUp
+      ? "bird_wing_up"
+      : "bird_wing_down";
     canvas.context.drawImage(
-      images.find((image) => image.name === "birdWingUp").element,
+      images.find((image) => image.name === imageName).element,
       bird.x - world.x,
       bird.y
     );
   },
+
+  checkCollision: () => {
+    if (
+      scarecrowList.some(
+        (scarecrow) =>
+          bird.x + bird.width > scarecrow.x &&
+          bird.x < scarecrow.x + scarecrow.width &&
+          bird.y + bird.height > scarecrow.y &&
+          bird.y < scarecrow.y + scarecrow.height
+      )
+    ) {
+      life.count--;
+      bird.isDamage = true;
+    }
+  },
+};
+
+let scarecrowList = [];
+const setScarecrow = (x, y, type = "normal") => {
+  scarecrowList.push({
+    x: x,
+    y: y,
+    width: 32,
+    height: 38,
+    type: type,
+  });
+};
+
+const drawScarecrow = () => {
+  scarecrowList.forEach((scarecrow) => {
+    canvas.context.drawImage(
+      images.find((image) => image.name === "scarecrow").element,
+      scarecrow.x - world.x,
+      scarecrow.y
+    );
+  });
 };
 
 const showGameClearMessage = () => {
