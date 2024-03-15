@@ -137,9 +137,9 @@ const init = () => {
   canvas.context.fillRect(0, 0, canvas.width, canvas.height);
 
   loadImages();
-  setScarecrow(300, 400);
-  setScarecrow(500, 400);
-  setScarecrow(700, 400);
+  setEnemy(300, 400);
+  setEnemy(500, 400);
+  setEnemy(700, 400);
 
   draw();
 };
@@ -223,7 +223,7 @@ const draw = () => {
   life.draw();
 
   // scarecrow
-  drawScarecrow();
+  drawEnemy();
 
   // cloud
   canvas.context.beginPath();
@@ -325,7 +325,7 @@ const bird = {
 
   checkCollision: () => {
     if (
-      scarecrowList.some(
+      enemyList.some(
         (scarecrow) =>
           bird.x + bird.width > scarecrow.x &&
           bird.x < scarecrow.x + scarecrow.width &&
@@ -339,9 +339,9 @@ const bird = {
   },
 };
 
-let scarecrowList = [];
-const setScarecrow = (x, y, type = "normal") => {
-  scarecrowList.push({
+let enemyList = [];
+const setEnemy = (x, y, type = "balloon") => {
+  enemyList.push({
     x: x,
     y: y,
     width: 32,
@@ -350,12 +350,12 @@ const setScarecrow = (x, y, type = "normal") => {
   });
 };
 
-const drawScarecrow = () => {
-  scarecrowList.forEach((scarecrow) => {
+const drawEnemy = () => {
+  enemyList.forEach((enemy) => {
     canvas.context.drawImage(
-      images.find((image) => image.name === "scarecrow").element,
-      scarecrow.x - world.x,
-      scarecrow.y
+      images.find((image) => image.name === enemy.type).element,
+      enemy.x - world.x,
+      enemy.y
     );
   });
 };
