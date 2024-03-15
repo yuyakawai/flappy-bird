@@ -240,7 +240,7 @@ const draw = () => {
 
 const life = {
   max: 5,
-  count: 5,
+  count: 3,
   draw: () => {
     canvas.context.globalAlpha = 1;
     [...Array(life.max)].map((_, index) => {
@@ -264,8 +264,18 @@ const bird = {
   isDamage: false,
   damageTime: 0,
   maxDamageTime: 64,
+  isdead: false,
 
   update: () => {
+    if (bird.y > canvas.height) {
+      gameStatus.isGameOver = true;
+    }
+
+    if (bird.isdead) {
+      bird.y += 3;
+      return;
+    }
+
     bird.x++;
     if (controller.isPressed) {
       bird.isWingUp = false;
@@ -284,6 +294,10 @@ const bird = {
       }
     } else {
       bird.checkCollision();
+    }
+
+    if (life.count === 0) {
+      bird.isdead = true;
     }
   },
 
@@ -346,38 +360,16 @@ const drawScarecrow = () => {
   });
 };
 
-const showGameClearMessage = () => {
-  let messageElement = document.createElement("div");
-  messageElement.style.position = "relative";
-  messageElement.style.zIndex = "1";
-  messageElement.style.width = screenContainer.width + "px";
-  messageElement.style.height = screenContainer.height * 0.9 + "px";
-  messageElement.style.display = "flex";
-  messageElement.style.alignItems = "center";
-  messageElement.style.justifyContent = "center";
-  messageElement.style.color = "blue";
-  messageElement.style.fontSize = "32px";
-  messageElement.textContent = "Game Clear !!";
-  screenContainer.element.appendChild(messageElement);
-};
-
 const showGameOverMessage = () => {
-  let messageElement = document.createElement("div");
-  messageElement.style.position = "relative";
-  messageElement.style.zIndex = "1";
-  messageElement.style.width = screenContainer.width + "px";
-  messageElement.style.height = screenContainer.height * 0.9 + "px";
-  messageElement.style.display = "flex";
-  messageElement.style.alignItems = "center";
-  messageElement.style.justifyContent = "center";
-  messageElement.style.color = "red";
-  messageElement.style.fontSize = "32px";
-  messageElement.textContent = "Game Over";
-  screenContainer.element.appendChild(messageElement);
+  canvas.context.globalAlpha = 1;
+  canvas.context.font = "36px sans-serif";
+  canvas.context.fillStyle = "red";
+  canvas.context.fillText("Game Over", 55, 200);
 };
 
 const tick = () => {
-  if (gameStatus.isGameClear || gameStatus.isGameOver) {
+  if (gameStatus.isGameOver) {
+    showGameOverMessage();
     return;
   }
 
