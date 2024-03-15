@@ -1,0 +1,16 @@
+{
+  "enemy": [
+    {
+      "Name": "goblin",
+      "SummonCost": 1,
+      "Power": 1.2,
+      "Toughness": 3.5
+    },
+    {
+      "Name": "kobold",
+      "SummonCost": 3,
+      "Power": 3.5,
+      "Toughness": 5.12
+    }
+  ]
+}

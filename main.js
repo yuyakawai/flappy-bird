@@ -4,6 +4,8 @@ const cellRow = 4;
 const cellCol = 4;
 const cellSwapCount = 1000;
 
+let enemyList = [];
+
 const gameStatus = {
   isGameStart: false,
   isGameClear: false,
@@ -137,9 +139,9 @@ const init = () => {
   canvas.context.fillRect(0, 0, canvas.width, canvas.height);
 
   loadImages();
-  setEnemy(300, 400);
-  setEnemy(500, 400);
-  setEnemy(700, 400);
+  setEnemy(300, 400, 32, 38, "scarecrow");
+  setEnemy(500, 400, 32, 38, "scarecrow");
+  setEnemy(700, 400, 32, 38, "scarecrow");
 
   draw();
 };
@@ -222,8 +224,10 @@ const draw = () => {
   // life update
   life.draw();
 
-  // scarecrow
-  drawEnemy();
+  // enemey
+  enemyList.forEach((enemy) => {
+    enemy.draw();
+  });
 
   // cloud
   canvas.context.beginPath();
@@ -264,14 +268,14 @@ const bird = {
   isDamage: false,
   damageTime: 0,
   maxDamageTime: 64,
-  isdead: false,
+  isDead: false,
 
   update: () => {
     if (bird.y > canvas.height) {
       gameStatus.isGameOver = true;
     }
 
-    if (bird.isdead) {
+    if (bird.isDead) {
       bird.y += 3;
       return;
     }
@@ -297,7 +301,7 @@ const bird = {
     }
 
     if (life.count === 0) {
-      bird.isdead = true;
+      bird.isDead = true;
     }
   },
 
@@ -326,11 +330,11 @@ const bird = {
   checkCollision: () => {
     if (
       enemyList.some(
-        (scarecrow) =>
-          bird.x + bird.width > scarecrow.x &&
-          bird.x < scarecrow.x + scarecrow.width &&
-          bird.y + bird.height > scarecrow.y &&
-          bird.y < scarecrow.y + scarecrow.height
+        (enemy) =>
+          bird.x + bird.width > enemy.x &&
+          bird.x < enemy.x + enemy.width &&
+          bird.y + bird.height > enemy.y &&
+          bird.y < enemy.y + enemy.height
       )
     ) {
       life.count--;
@@ -339,24 +343,20 @@ const bird = {
   },
 };
 
-let enemyList = [];
-const setEnemy = (x, y, type = "balloon") => {
+const setEnemy = (x, y, width, height, type) => {
   enemyList.push({
     x: x,
     y: y,
-    width: 32,
-    height: 38,
+    width: width,
+    height: height,
     type: type,
-  });
-};
-
-const drawEnemy = () => {
-  enemyList.forEach((enemy) => {
-    canvas.context.drawImage(
-      images.find((image) => image.name === enemy.type).element,
-      enemy.x - world.x,
-      enemy.y
-    );
+    draw: () => {
+      canvas.context.drawImage(
+        images.find((image) => image.name === type).element,
+        x - world.x,
+        y
+      );
+    },
   });
 };
 
