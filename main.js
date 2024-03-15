@@ -263,6 +263,7 @@ const bird = {
   isWingUp: true,
   isDamage: false,
   damageTime: 0,
+  maxDamageTime: 64,
 
   update: () => {
     bird.x++;
@@ -277,7 +278,7 @@ const bird = {
 
     if (bird.isDamage) {
       bird.damageTime++;
-      if (bird.damageTime > 64) {
+      if (bird.damageTime > bird.maxDamageTime) {
         bird.isDamage = false;
         bird.damageTime = 0;
       }
@@ -287,7 +288,7 @@ const bird = {
   },
 
   draw: () => {
-    canvas.context.globalAlpha = bird.isDamage ? 0.7 : 1;
+    canvas.context.globalAlpha = bird.isDamage ? 0.8 : 1;
     const imageName = bird.isDamage
       ? "bird_damage"
       : bird.isWingUp
@@ -295,12 +296,15 @@ const bird = {
       : "bird_wing_down";
 
     canvas.context.save();
-    canvas.context.translate(bird.x, bird.y);
-    //canvas.context.rotate(bird.damageTime * 2 * (Math.PI / 180));
+    canvas.context.translate(
+      bird.x + bird.width / 2 - world.x,
+      bird.y + bird.height / 2
+    );
+    canvas.context.rotate(bird.damageTime * 16 * (Math.PI / 180));
     canvas.context.drawImage(
       images.find((image) => image.name === imageName).element,
-      0,
-      0
+      -bird.width / 2,
+      -bird.height / 2
     );
     canvas.context.restore();
   },
