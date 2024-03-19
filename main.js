@@ -1,3 +1,6 @@
+import { enemyData } from "./data/enemy-data.js";
+import { mapData } from "./data/map-data.js";
+
 const initialRemainingTime = 360;
 const cellSize = 70;
 const cellRow = 4;
@@ -139,10 +142,7 @@ const init = () => {
   canvas.context.fillRect(0, 0, canvas.width, canvas.height);
 
   loadImages();
-  setEnemy(300, 400, 32, 38, "scarecrow");
-  setEnemy(500, 400, 32, 38, "scarecrow");
-  setEnemy(700, 400, 32, 38, "scarecrow");
-
+  loadMap(1);
   draw();
 };
 
@@ -181,6 +181,14 @@ const loadImages = () => {
 
 const world = {
   x: 0,
+};
+
+const loadMap = (stage) => {
+  mapData
+    .filter((map) => map.stage === stage)
+    .forEach((e) => {
+      setEnemy(e.name, e.x, e.y, 32, 38);
+    });
 };
 
 const draw = () => {
@@ -343,16 +351,16 @@ const bird = {
   },
 };
 
-const setEnemy = (x, y, width, height, type) => {
+const setEnemy = (name, x, y, width, height) => {
   enemyList.push({
+    name: name,
     x: x,
     y: y,
     width: width,
     height: height,
-    type: type,
     draw: () => {
       canvas.context.drawImage(
-        images.find((image) => image.name === type).element,
+        images.find((image) => image.name === name).element,
         x - world.x,
         y
       );
