@@ -169,7 +169,9 @@ const draw = () => {
   updateEnemy();
   drawEnemy();
 
-  drawCloud();
+  if (stageData.find((e) => e.stage === world.stage).isCloud) {
+    drawCloud();
+  }
 
   world.x++;
 };
@@ -209,6 +211,7 @@ const drawCloud = () => {
 };
 
 const drawMountain = () => {
+  const color = stageData.find((e) => e.stage === world.stage).mountainColor;
   [...Array(5)].map((_, index) => {
     const dx = 500 * index + 100;
     canvas.context.beginPath();
@@ -221,8 +224,8 @@ const drawMountain = () => {
       290
     );
     canvas.context.lineTo(230 + dx - world.x, 390);
-    canvas.context.strokeStyle = "#2f4f4f";
-    canvas.context.fillStyle = "#2f4f4f";
+    canvas.context.strokeStyle = color;
+    canvas.context.fillStyle = color;
     canvas.context.globalAlpha = 1;
     canvas.context.fill();
     canvas.context.stroke();
