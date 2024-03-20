@@ -38,7 +38,14 @@ const canvas = {
   height: screenContainer.height,
 };
 
-const loaderContainer = { progressBarElement: null, messageElement: null };
+const loaderContainer = {
+  progressBarElement: null,
+  messageElement: null,
+};
+
+window.onload = () => {
+  init();
+};
 
 const init = () => {
   mainContainer.element = document.getElementById("main-container");
@@ -95,6 +102,7 @@ const init = () => {
   loadImages();
   loadMap(world.stage);
   draw();
+  tick();
 };
 
 const controller = {
@@ -153,36 +161,15 @@ const draw = () => {
   loaderContainer.messageElement.style.display = "none";
 
   drawGround();
-
-  // mountain
-  canvas.context.beginPath();
-  canvas.context.moveTo(50 - world.x, 390);
-  canvas.context.lineTo(130 - world.x, 290);
-  canvas.context.quadraticCurveTo(140 - world.x, 280, 150 - world.x, 290);
-  canvas.context.lineTo(230 - world.x, 390);
-  canvas.context.strokeStyle = "#2f4f4f";
-  canvas.context.fillStyle = "#2f4f4f";
-  canvas.context.globalAlpha = 1;
-  canvas.context.fill();
-  canvas.context.stroke();
-  canvas.context.closePath();
+  drawMountain();
 
   bird.update();
   bird.draw();
   life.draw();
-
-  drawEnemy();
   updateEnemy();
+  drawEnemy();
 
-  // cloud
-  canvas.context.beginPath();
-  canvas.context.ellipse(100 - world.x, 100, 70, 25, 0, 0, 2 * Math.PI);
-  canvas.context.strokeStyle = "#ffffff";
-  canvas.context.fillStyle = "#ffffff";
-  canvas.context.globalAlpha = 0.7;
-  canvas.context.fill();
-  canvas.context.stroke();
-  canvas.context.closePath();
+  drawCloud();
 
   world.x++;
 };
@@ -198,6 +185,49 @@ const drawGround = () => {
   ).groundColor;
   canvas.context.fillRect(0, canvas.height * 0.8, canvas.width, canvas.height);
   canvas.context.closePath();
+};
+
+const drawCloud = () => {
+  [...Array(5)].map((_, index) => {
+    canvas.context.beginPath();
+    canvas.context.ellipse(
+      250 * (index + 1) - world.x,
+      100 * ((index % 2) + 1),
+      70,
+      25,
+      0,
+      0,
+      2 * Math.PI
+    );
+    canvas.context.strokeStyle = "#ffffff";
+    canvas.context.fillStyle = "#ffffff";
+    canvas.context.globalAlpha = 0.7;
+    canvas.context.fill();
+    canvas.context.stroke();
+    canvas.context.closePath();
+  });
+};
+
+const drawMountain = () => {
+  [...Array(5)].map((_, index) => {
+    const dx = 500 * index + 100;
+    canvas.context.beginPath();
+    canvas.context.moveTo(50 + dx - world.x, 390);
+    canvas.context.lineTo(130 + dx - world.x, 290);
+    canvas.context.quadraticCurveTo(
+      140 + dx - world.x,
+      280,
+      150 + dx - world.x,
+      290
+    );
+    canvas.context.lineTo(230 + dx - world.x, 390);
+    canvas.context.strokeStyle = "#2f4f4f";
+    canvas.context.fillStyle = "#2f4f4f";
+    canvas.context.globalAlpha = 1;
+    canvas.context.fill();
+    canvas.context.stroke();
+    canvas.context.closePath();
+  });
 };
 
 const life = {
@@ -360,9 +390,4 @@ const tick = () => {
   }
 
   requestAnimationFrame(tick);
-};
-
-window.onload = () => {
-  init();
-  tick();
 };
