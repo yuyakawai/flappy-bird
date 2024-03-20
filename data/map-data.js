@@ -3,15 +3,21 @@ export const mapData = [
     id: 1,
     stage: 1,
     name: "balloon",
-    x: 300,
-    y: 400,
+    x: 250,
+    y: 200,
+    option: {
+      time: 1,
+    },
   },
   {
     id: 2,
     stage: 1,
-    name: "scarecrow",
-    x: 500,
-    y: 400,
+    name: "balloon",
+    x: 300,
+    y: 200,
+    option: {
+      time: 0,
+    },
   },
   {
     id: 3,
@@ -19,5 +25,8 @@ export const mapData = [
     name: "scarecrow",
     x: 700,
     y: 400,
+    option: {
+      // empty
+    },
   },
 ];

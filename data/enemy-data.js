@@ -4,8 +4,8 @@ export const enemyData = [
     name: "scarecrow",
     width: 32,
     height: 38,
-    update: (x, y) => {
-      //
+    update: (e) => {
+      // empty
     },
   },
   {
@@ -13,8 +13,9 @@ export const enemyData = [
     name: "balloon",
     width: 32,
     height: 38,
-    update: (x, y) => {
-      y++;
+    update: (e) => {
+      e.option.time++;
+      e.y += Math.sin(e.option.time * 0.05) * 3;
     },
   },
 ];

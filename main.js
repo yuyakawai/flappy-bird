@@ -180,10 +180,10 @@ const world = {
 
 const loadMap = (stage) => {
   mapData
-    .filter((map) => map.stage === stage)
+    .filter((e) => e.stage === stage)
     .forEach((e) => {
       const ed = enemyData.filter((enemy) => enemy.name === e.name).pop();
-      setEnemy(e.name, e.x, e.y, ed.width, ed.height, ed.update);
+      setEnemy(e.name, e.x, e.y, ed.width, ed.height, e.option, ed.update);
     });
 };
 
@@ -201,12 +201,6 @@ const draw = () => {
   canvas.context.fillStyle = "green";
   canvas.context.fillRect(0, canvas.height * 0.8, canvas.width, canvas.height);
   canvas.context.closePath();
-
-  canvas.context.drawImage(
-    images.find((image) => image.name === "balloon").element,
-    100 - world.x,
-    200
-  );
 
   // mountain
   canvas.context.beginPath();
@@ -346,13 +340,14 @@ const bird = {
   },
 };
 
-const setEnemy = (name, x, y, width, height, update) => {
+const setEnemy = (name, x, y, width, height, option, update) => {
   enemyList.push({
     name: name,
     x: x,
     y: y,
     width: width,
     height: height,
+    option: option,
     update: update,
   });
 };
@@ -369,7 +364,7 @@ const drawEnemy = () => {
 
 const updateEnemy = () => {
   enemyList.forEach((enemy) => {
-    enemy.update(enemy.x, enemy.y);
+    enemy.update(enemy);
   });
 };
 
