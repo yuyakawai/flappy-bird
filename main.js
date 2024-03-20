@@ -187,7 +187,9 @@ const loadMap = (stage) => {
   mapData
     .filter((map) => map.stage === stage)
     .forEach((e) => {
-      setEnemy(e.name, e.x, e.y, 32, 38);
+      const width = enemyData.filter((enemy) => enemy.name === e.name).width;
+      const height = enemyData.filter((enemy) => enemy.name === e.name).height;
+      setEnemy(e.name, e.x, e.y, width, height);
     });
 };
 
