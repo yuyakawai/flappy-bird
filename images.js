@@ -41,4 +41,10 @@ export const images = [
     element: null,
     isLoaded: false,
   },
+  {
+    name: "jelly",
+    path: "image/jelly.png",
+    element: null,
+    isLoaded: false,
+  },
 ];

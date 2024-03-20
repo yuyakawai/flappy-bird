@@ -18,4 +18,13 @@ export const enemyData = [
       e.y += Math.sin(e.option.time * 0.05) * 3;
     },
   },
+  {
+    id: 3,
+    name: "jelly",
+    width: 32,
+    height: 32,
+    update: (e) => {
+      // empty
+    },
+  },
 ];

@@ -136,6 +136,7 @@ const world = {
 };
 
 const loadMap = (stage) => {
+  enemyList = [];
   mapData
     .filter((e) => e.stage === stage)
     .forEach((e) => {
