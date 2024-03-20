@@ -1,6 +1,7 @@
 import { images } from "./images.js";
 import { enemyData } from "./data/enemy-data.js";
 import { mapData } from "./data/map-data.js";
+import { stageData } from "./data/stage-data.js";
 
 let enemyList = [];
 
@@ -150,13 +151,7 @@ const draw = () => {
   loaderContainer.progressBarElement.style.display = "none";
   loaderContainer.messageElement.style.display = "none";
 
-  canvas.context.beginPath();
-  canvas.context.fillStyle = "lightblue";
-  canvas.context.globalAlpha = 1;
-  canvas.context.fillRect(0, 0, canvas.width, canvas.height * 0.8);
-  canvas.context.fillStyle = "green";
-  canvas.context.fillRect(0, canvas.height * 0.8, canvas.width, canvas.height);
-  canvas.context.closePath();
+  drawGround();
 
   // mountain
   canvas.context.beginPath();
@@ -171,14 +166,10 @@ const draw = () => {
   canvas.context.stroke();
   canvas.context.closePath();
 
-  // bird update
   bird.update();
   bird.draw();
-
-  // life update
   life.draw();
 
-  // enemey
   drawEnemy();
   updateEnemy();
 
@@ -193,6 +184,19 @@ const draw = () => {
   canvas.context.closePath();
 
   world.x++;
+};
+
+const drawGround = () => {
+  canvas.context.beginPath();
+  canvas.context.fillStyle = stageData.find(
+    (e) => e.stage === world.stage
+  ).skyColor;
+  canvas.context.fillRect(0, 0, canvas.width, canvas.height * 0.8);
+  canvas.context.fillStyle = stageData.find(
+    (e) => e.stage === world.stage
+  ).groundColor;
+  canvas.context.fillRect(0, canvas.height * 0.8, canvas.width, canvas.height);
+  canvas.context.closePath();
 };
 
 const life = {
@@ -294,6 +298,11 @@ const bird = {
       bird.isDamage = true;
     }
   },
+
+  resetPosition: () => {
+    bird.x = 50;
+    bird.y = 200;
+  },
 };
 
 const setEnemy = (name, x, y, width, height, option, update) => {
@@ -342,6 +351,13 @@ const tick = () => {
   }
 
   draw();
+  if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
+    world.stage++;
+    world.x = 0;
+    bird.resetPosition();
+    loadMap(world.stage);
+  }
+
   requestAnimationFrame(tick);
 };
 
