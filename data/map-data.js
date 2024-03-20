@@ -6,14 +6,14 @@ export const mapData = [
     x: 250,
     y: 200,
     option: {
-      time: 1,
+      time: 0,
     },
   },
   {
     id: 2,
     stage: 1,
     name: "balloon",
-    x: 300,
+    x: 350,
     y: 200,
     option: {
       time: 0,
