@@ -1,4 +1,4 @@
-import { images } from "./data/image-data.js";
+import { images } from "./images.js";
 import { enemyData } from "./data/enemy-data.js";
 import { mapData } from "./data/map-data.js";
 
