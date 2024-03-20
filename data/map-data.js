@@ -2,7 +2,7 @@ export const mapData = [
   {
     id: 1,
     stage: 1,
-    name: "scarecrow",
+    name: "balloon",
     x: 300,
     y: 400,
   },

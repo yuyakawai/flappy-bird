@@ -1,12 +1,6 @@
 import { enemyData } from "./data/enemy-data.js";
 import { mapData } from "./data/map-data.js";
 
-const initialRemainingTime = 360;
-const cellSize = 70;
-const cellRow = 4;
-const cellCol = 4;
-const cellSwapCount = 1000;
-
 let enemyList = [];
 
 const gameStatus = {
@@ -142,7 +136,7 @@ const init = () => {
   canvas.context.fillRect(0, 0, canvas.width, canvas.height);
 
   loadImages();
-  loadMap(1);
+  loadMap(world.stage);
   draw();
 };
 
@@ -180,6 +174,7 @@ const loadImages = () => {
 };
 
 const world = {
+  stage: 1,
   x: 0,
 };
 
@@ -187,9 +182,8 @@ const loadMap = (stage) => {
   mapData
     .filter((map) => map.stage === stage)
     .forEach((e) => {
-      const width = enemyData.filter((enemy) => enemy.name === e.name).width;
-      const height = enemyData.filter((enemy) => enemy.name === e.name).height;
-      setEnemy(e.name, e.x, e.y, width, height);
+      const ed = enemyData.filter((enemy) => enemy.name === e.name).pop();
+      setEnemy(e.name, e.x, e.y, ed.width, ed.height, ed.update);
     });
 };
 
@@ -235,9 +229,8 @@ const draw = () => {
   life.draw();
 
   // enemey
-  enemyList.forEach((enemy) => {
-    enemy.draw();
-  });
+  drawEnemy();
+  updateEnemy();
 
   // cloud
   canvas.context.beginPath();
@@ -353,20 +346,30 @@ const bird = {
   },
 };
 
-const setEnemy = (name, x, y, width, height) => {
+const setEnemy = (name, x, y, width, height, update) => {
   enemyList.push({
     name: name,
     x: x,
     y: y,
     width: width,
     height: height,
-    draw: () => {
-      canvas.context.drawImage(
-        images.find((image) => image.name === name).element,
-        x - world.x,
-        y
-      );
-    },
+    update: update,
+  });
+};
+
+const drawEnemy = () => {
+  enemyList.forEach((enemy) => {
+    canvas.context.drawImage(
+      images.find((image) => image.name === enemy.name).element,
+      enemy.x - world.x,
+      enemy.y
+    );
+  });
+};
+
+const updateEnemy = () => {
+  enemyList.forEach((enemy) => {
+    enemy.update(enemy.x, enemy.y);
   });
 };
 
