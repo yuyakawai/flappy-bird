@@ -105,6 +105,11 @@ const init = () => {
   tick();
 };
 
+const tick = () => {
+  draw();
+  requestAnimationFrame(tick);
+};
+
 const controller = {
   isPressed: false,
   init: () => {
@@ -191,6 +196,28 @@ const draw = () => {
     return;
   }
 
+  // stage clear scene
+  if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
+    if (bird.y >= canvas.height - 80) {
+      bird.y += 3;
+      drawGround();
+      drawMountain();
+      bird.draw();
+      gameStatus.isStageClear = true;
+    }
+    return;
+  }
+
+  // next stage move scene
+  if (gameStatus.isStageClear) {
+    gameStatus.isStageClear = false;
+    world.stage++;
+    world.x = 0;
+    bird.resetPosition();
+    loadMap(world.stage);
+    return;
+  }
+
   drawGround();
   drawMountain();
 
@@ -207,10 +234,6 @@ const draw = () => {
   }
 
   world.x++;
-
-  if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
-    gameStatus.isStageClear = true;
-  }
 };
 
 const drawGround = () => {
@@ -423,17 +446,4 @@ const resetGame = () => {
   bird.damageTime = 0;
   life.count = life.max;
   loadMap(world.stage);
-};
-
-const tick = () => {
-  draw();
-  if (gameStatus.isStageClear) {
-    world.stage++;
-    world.x = 0;
-    bird.resetPosition();
-    loadMap(world.stage);
-    gameStatus.isStageClear = false;
-  }
-
-  requestAnimationFrame(tick);
 };
