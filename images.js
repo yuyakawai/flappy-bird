@@ -1,5 +1,11 @@
 export const images = [
   {
+    name: "title",
+    path: "image/title.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
     name: "bird_wing_up",
     path: "image/bird_wing_up.png",
     element: null,

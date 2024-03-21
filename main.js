@@ -6,11 +6,11 @@ import { stageData } from "./data/stage-data.js";
 let enemyList = [];
 
 const gameStatus = {
+  currentScene: "title",
   isGameStart: false,
   isGameClear: false,
   isGameOver: false,
-  startTime: 0,
-  remainingTime: 0,
+  isStageClear: false,
 };
 
 const mainContainer = {
@@ -139,7 +139,7 @@ const loadImages = () => {
 };
 
 const world = {
-  stage: 1,
+  stage: 0,
   x: 0,
 };
 
@@ -160,12 +160,45 @@ const draw = () => {
   loaderContainer.progressBarElement.style.display = "none";
   loaderContainer.messageElement.style.display = "none";
 
+  // titile scene
+  if (gameStatus.isGameStart === false) {
+    drawGround();
+    drawMountain();
+    canvas.context.drawImage(
+      images.find((image) => image.name === "title").element,
+      70,
+      30
+    );
+    drawCloud();
+
+    world.x++;
+    if (world.x > 1000) {
+      world.x = 0;
+    }
+    if (controller.isPressed) {
+      gameStatus.isGameStart = true;
+      gameStatus.isStageClear = true;
+    }
+    return;
+  }
+
+  // game over scene
+  if (gameStatus.isGameOver) {
+    showGameOverMessage();
+    if (controller.isPressed) {
+      resetGame();
+    }
+    return;
+  }
+
   drawGround();
   drawMountain();
 
   bird.update();
   bird.draw();
+
   life.draw();
+
   updateEnemy();
   drawEnemy();
 
@@ -174,6 +207,10 @@ const draw = () => {
   }
 
   world.x++;
+
+  if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
+    gameStatus.isStageClear = true;
+  }
 };
 
 const drawGround = () => {
@@ -235,7 +272,7 @@ const drawMountain = () => {
 
 const life = {
   max: 5,
-  count: 3,
+  count: 1,
   draw: () => {
     canvas.context.globalAlpha = 1;
     [...Array(life.max)].map((_, index) => {
@@ -250,7 +287,6 @@ const life = {
 };
 
 const bird = {
-  element: null,
   x: 50,
   y: 200,
   width: 32,
@@ -374,22 +410,29 @@ const showGameOverMessage = () => {
   canvas.context.fillText("Game Over", 55, 200);
 };
 
+const resetGame = () => {
+  gameStatus.isGameStart = false;
+  gameStatus.isGameClear = false;
+  gameStatus.isGameOver = false;
+  gameStatus.isStageClear = false;
+  world.stage = 0;
+  world.x = 0;
+  bird.resetPosition();
+  bird.isDead = false;
+  bird.isDamage = false;
+  bird.damageTime = 0;
+  life.count = life.max;
+  loadMap(world.stage);
+};
+
 const tick = () => {
-  if (gameStatus.isGameOver) {
-    showGameOverMessage();
-    return;
-  }
-
-  if (gameStatus.isGameStart) {
-    //TODO
-  }
-
   draw();
-  if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
+  if (gameStatus.isStageClear) {
     world.stage++;
     world.x = 0;
     bird.resetPosition();
     loadMap(world.stage);
+    gameStatus.isStageClear = false;
   }
 
   requestAnimationFrame(tick);

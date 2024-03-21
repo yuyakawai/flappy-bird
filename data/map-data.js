@@ -2,15 +2,6 @@ export const mapData = [
   {
     stage: 1,
     name: "balloon",
-    x: 250,
-    y: 200,
-    option: {
-      time: 0,
-    },
-  },
-  {
-    stage: 1,
-    name: "balloon",
     x: 350,
     y: 200,
     option: {
