@@ -170,6 +170,7 @@ const draw = () => {
     drawGround();
     drawMountain();
     drawEnemy();
+    drawSpeechBubble(160, 200, "画面をタップしてスタート");
     canvas.context.drawImage(
       images.find((image) => image.name === "title").element,
       70,
@@ -190,7 +191,7 @@ const draw = () => {
 
   // game over scene
   if (gameStatus.isGameOver) {
-    showGameOverMessage();
+    drawGameOverMessage();
     if (controller.isPressed) {
       resetGame();
     }
@@ -434,11 +435,65 @@ const updateEnemy = () => {
   });
 };
 
-const showGameOverMessage = () => {
+const drawGameOverMessage = () => {
   canvas.context.globalAlpha = 1;
   canvas.context.font = "36px sans-serif";
   canvas.context.fillStyle = "red";
   canvas.context.fillText("Game Over", 55, 200);
+};
+
+const drawSpeechBubble = (x, y, text) => {
+  const bubbleWidth = text.length * 20;
+  const bubbleHeight = 40;
+  const bubbleX = x - bubbleWidth / 2;
+  const bubbleY = y - bubbleHeight;
+
+  canvas.context.fillStyle = "lightyellow";
+  canvas.context.strokeStyle = "burlywood";
+  canvas.context.lineWidth = 1;
+  canvas.context.beginPath();
+  canvas.context.moveTo(bubbleX + 10, bubbleY);
+  canvas.context.lineTo(bubbleX + bubbleWidth - 10, bubbleY);
+  canvas.context.quadraticCurveTo(
+    bubbleX + bubbleWidth,
+    bubbleY,
+    bubbleX + bubbleWidth,
+    bubbleY + 10
+  );
+  canvas.context.lineTo(bubbleX + bubbleWidth, bubbleY + bubbleHeight - 10);
+  canvas.context.quadraticCurveTo(
+    bubbleX + bubbleWidth,
+    bubbleY + bubbleHeight,
+    bubbleX + bubbleWidth - 10,
+    bubbleY + bubbleHeight
+  );
+  canvas.context.lineTo(bubbleX + 10, bubbleY + bubbleHeight);
+  canvas.context.quadraticCurveTo(
+    bubbleX,
+    bubbleY + bubbleHeight,
+    bubbleX,
+    bubbleY + bubbleHeight - 10
+  );
+  canvas.context.lineTo(bubbleX, bubbleY + 10);
+  canvas.context.quadraticCurveTo(bubbleX, bubbleY, bubbleX + 10, bubbleY);
+
+  canvas.context.fill();
+  canvas.context.stroke();
+  canvas.context.closePath();
+
+  const edgeX = bubbleX + bubbleWidth * 0.7;
+  const edgeY = bubbleY + bubbleHeight;
+  canvas.context.moveTo(edgeX, edgeY);
+  canvas.context.lineTo(edgeX + 20, edgeY + 20);
+  canvas.context.lineTo(edgeX - 20, edgeY);
+  canvas.context.fill();
+  canvas.context.stroke();
+
+  canvas.context.fillStyle = "black";
+  canvas.context.font = "18px sans-serif";
+  canvas.context.textAlign = "center";
+  canvas.context.textBaseline = "middle";
+  canvas.context.fillText(text, x, y - bubbleHeight / 2);
 };
 
 const resetGame = () => {
