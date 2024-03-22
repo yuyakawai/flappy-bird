@@ -169,6 +169,7 @@ const draw = () => {
   if (gameStatus.isGameStart === false) {
     drawGround();
     drawMountain();
+    drawEnemy();
     canvas.context.drawImage(
       images.find((image) => image.name === "title").element,
       70,
@@ -198,11 +199,16 @@ const draw = () => {
 
   // stage clear scene
   if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
+    bird.y += 3;
+    drawGround();
+    drawMountain();
+    updateEnemy();
+    drawEnemy();
+    drawCloud();
+    bird.draw();
     if (bird.y >= canvas.height - 80) {
-      bird.y += 3;
-      drawGround();
-      drawMountain();
-      bird.draw();
+      console.log("stage clear");
+      world.x = 0;
       gameStatus.isStageClear = true;
     }
     return;
@@ -229,9 +235,7 @@ const draw = () => {
   updateEnemy();
   drawEnemy();
 
-  if (stageData.find((e) => e.stage === world.stage).isCloud) {
-    drawCloud();
-  }
+  drawCloud();
 
   world.x++;
 };
@@ -250,6 +254,10 @@ const drawGround = () => {
 };
 
 const drawCloud = () => {
+  if (stageData.find((e) => e.stage === world.stage).isCloud === false) {
+    return;
+  }
+
   [...Array(5)].map((_, index) => {
     canvas.context.beginPath();
     canvas.context.ellipse(

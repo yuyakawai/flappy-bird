@@ -27,4 +27,13 @@ export const enemyData = [
       // empty
     },
   },
+  {
+    id: 4,
+    name: "snowman",
+    width: 32,
+    height: 38,
+    update: (e) => {
+      // empty
+    },
+  },
 ];

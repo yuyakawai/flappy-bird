@@ -1,5 +1,32 @@
 export const mapData = [
   {
+    stage: 0,
+    name: "scarecrow",
+    x: 300,
+    y: 400,
+    option: {
+      // empty
+    },
+  },
+  {
+    stage: 0,
+    name: "jelly",
+    x: 600,
+    y: 400,
+    option: {
+      // empty
+    },
+  },
+  {
+    stage: 0,
+    name: "snowman",
+    x: 900,
+    y: 400,
+    option: {
+      // empty
+    },
+  },
+  {
     stage: 1,
     name: "balloon",
     x: 350,
