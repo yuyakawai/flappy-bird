@@ -198,7 +198,7 @@ const draw = () => {
     return;
   }
 
-  // stage clear scene
+  // stage clear bird down scene
   if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
     bird.y += 3;
     drawGround();
@@ -208,8 +208,21 @@ const draw = () => {
     drawCloud();
     bird.draw();
     if (bird.y >= canvas.height - 80) {
-      console.log("stage clear");
-      world.x = 0;
+      gameStatus.nextScene = "JellySpeech1";
+    }
+    return;
+  }
+
+  // stage clear jelly speech scene
+  if (gameStatus.nextScene === "JellySpeech1") {
+    drawGround();
+    drawMountain();
+    updateEnemy();
+    drawEnemy();
+    drawCloud();
+    drawSpeechBubble(160, 200, "お手紙ありがとう！！");
+    bird.draw();
+    if (controller.isPressed) {
       gameStatus.isStageClear = true;
     }
     return;
@@ -225,6 +238,7 @@ const draw = () => {
     return;
   }
 
+  // game play scene
   drawGround();
   drawMountain();
 

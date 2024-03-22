@@ -1,7 +1,7 @@
 export const stageData = [
   {
     stage: 0,
-    stageGoalX: 1000,
+    stageGoalX: 1200,
     skyColor: "lightblue",
     groundColor: "green",
     mountainColor: "#2f4f4f",
