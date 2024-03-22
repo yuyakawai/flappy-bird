@@ -203,6 +203,7 @@ const draw = () => {
     bird.y += 3;
     drawGround();
     drawMountain();
+    life.draw();
     updateEnemy();
     drawEnemy();
     drawCloud();
@@ -217,6 +218,7 @@ const draw = () => {
   if (gameStatus.nextScene === "JellySpeech1") {
     drawGround();
     drawMountain();
+    life.draw();
     updateEnemy();
     drawEnemy();
     drawCloud();
