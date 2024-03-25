@@ -1,6 +1,5 @@
 export const enemyData = [
   {
-    id: 1,
     name: "scarecrow",
     width: 32,
     height: 38,
@@ -9,8 +8,7 @@ export const enemyData = [
     },
   },
   {
-    id: 2,
-    name: "balloon",
+    name: "balloon_red",
     width: 32,
     height: 38,
     update: (e) => {
@@ -19,8 +17,25 @@ export const enemyData = [
     },
   },
   {
-    id: 3,
-    name: "jelly",
+    name: "balloon_blue",
+    width: 32,
+    height: 38,
+    update: (e) => {
+      e.option.time++;
+      e.y += Math.sin(e.option.time * 0.05) * 3;
+    },
+  },
+  {
+    name: "balloon_green",
+    width: 32,
+    height: 38,
+    update: (e) => {
+      e.option.time++;
+      e.y += Math.sin(e.option.time * 0.05) * 3;
+    },
+  },
+  {
+    name: "jelly_blue",
     width: 32,
     height: 32,
     update: (e) => {
@@ -28,7 +43,38 @@ export const enemyData = [
     },
   },
   {
-    id: 4,
+    name: "jelly_pink",
+    width: 32,
+    height: 32,
+    update: (e) => {
+      // empty
+    },
+  },
+  {
+    name: "jelly_yellow",
+    width: 32,
+    height: 32,
+    update: (e) => {
+      // empty
+    },
+  },
+  {
+    name: "jelly_green",
+    width: 32,
+    height: 32,
+    update: (e) => {
+      // empty
+    },
+  },
+  {
+    name: "jelly_gray",
+    width: 32,
+    height: 32,
+    update: (e) => {
+      // empty
+    },
+  },
+  {
     name: "snowman",
     width: 32,
     height: 38,

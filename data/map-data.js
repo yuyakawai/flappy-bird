@@ -10,7 +10,7 @@ export const mapData = [
   },
   {
     stage: 0,
-    name: "jelly",
+    name: "jelly_blue",
     x: 600,
     y: 400,
     option: {
@@ -28,7 +28,7 @@ export const mapData = [
   },
   {
     stage: 1,
-    name: "balloon",
+    name: "balloon_red",
     x: 350,
     y: 200,
     option: {
@@ -46,7 +46,7 @@ export const mapData = [
   },
   {
     stage: 1,
-    name: "jelly",
+    name: "jelly_blue",
     x: 1100,
     y: 400,
     option: {
@@ -55,7 +55,7 @@ export const mapData = [
   },
   {
     stage: 2,
-    name: "jelly",
+    name: "jelly_blue",
     x: 1100,
     y: 400,
     option: {
@@ -64,7 +64,7 @@ export const mapData = [
   },
   {
     stage: 3,
-    name: "jelly",
+    name: "jelly_blue",
     x: 1100,
     y: 400,
     option: {
@@ -73,7 +73,7 @@ export const mapData = [
   },
   {
     stage: 4,
-    name: "jelly",
+    name: "jelly_blue",
     x: 1100,
     y: 400,
     option: {
