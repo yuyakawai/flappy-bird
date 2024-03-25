@@ -107,6 +107,7 @@ const init = () => {
 const scene = [
   {
     name: "title",
+    update: updateTitle,
   },
 ];
 
