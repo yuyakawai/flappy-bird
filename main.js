@@ -101,9 +101,14 @@ const init = () => {
 
   loadImages();
   loadMap(world.stage);
-  draw();
   tick();
 };
+
+const scene = [
+  {
+    name: "title",
+  },
+];
 
 const tick = () => {
   draw();
@@ -158,89 +163,81 @@ const loadMap = (stage) => {
     });
 };
 
-const draw = () => {
+const updateImageLoading = () => {
   if (images.some((image) => image.isLoaded === false)) {
     return;
   }
   loaderContainer.progressBarElement.style.display = "none";
   loaderContainer.messageElement.style.display = "none";
+};
 
-  // titile scene
-  if (gameStatus.isGameStart === false) {
-    drawGround();
-    drawMountain();
-    drawEnemy();
-    drawSpeechBubble(160, 200, "画面をタップしてスタート");
-    canvas.context.drawImage(
-      images.find((image) => image.name === "title").element,
-      70,
-      30
-    );
-    drawCloud();
+const updateTitle = () => {
+  drawGround();
+  drawMountain();
+  drawEnemy();
+  drawSpeechBubble(160, 200, "画面をタップしてスタート");
+  canvas.context.drawImage(
+    images.find((image) => image.name === "title").element,
+    70,
+    30
+  );
+  drawCloud();
 
-    world.x++;
-    if (world.x > 1000) {
-      world.x = 0;
-    }
-    if (controller.isPressed) {
-      gameStatus.isGameStart = true;
-      gameStatus.isStageClear = true;
-    }
-    return;
-  }
-
-  // game over scene
-  if (gameStatus.isGameOver) {
-    drawGameOverMessage();
-    if (controller.isPressed) {
-      resetGame();
-    }
-    return;
-  }
-
-  // stage clear bird down scene
-  if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
-    bird.y += 3;
-    drawGround();
-    drawMountain();
-    life.draw();
-    updateEnemy();
-    drawEnemy();
-    drawCloud();
-    bird.draw();
-    if (bird.y >= canvas.height - 80) {
-      gameStatus.nextScene = "JellySpeech1";
-    }
-    return;
-  }
-
-  // stage clear jelly speech scene
-  if (gameStatus.nextScene === "JellySpeech1") {
-    drawGround();
-    drawMountain();
-    life.draw();
-    updateEnemy();
-    drawEnemy();
-    drawCloud();
-    drawSpeechBubble(160, 200, "お手紙ありがとう！！");
-    bird.draw();
-    if (controller.isPressed) {
-      gameStatus.isStageClear = true;
-    }
-    return;
-  }
-
-  // next stage move scene
-  if (gameStatus.isStageClear) {
-    gameStatus.isStageClear = false;
-    world.stage++;
+  world.x++;
+  if (world.x > 1000) {
     world.x = 0;
-    bird.resetPosition();
-    loadMap(world.stage);
-    return;
   }
+  if (controller.isPressed) {
+    gameStatus.isGameStart = true;
+    gameStatus.isStageClear = true;
+  }
+  return;
+};
 
-  // game play scene
+const updateGameOver = () => {
+  drawGameOverMessage();
+  if (controller.isPressed) {
+    resetGame();
+  }
+};
+
+const updateStageClearBirdDown = () => {
+  bird.y += 3;
+  drawGround();
+  drawMountain();
+  life.draw();
+  updateEnemy();
+  drawEnemy();
+  drawCloud();
+  bird.draw();
+  if (bird.y >= canvas.height - 80) {
+    gameStatus.nextScene = "JellySpeech1";
+  }
+};
+
+const updateStageClearJellySpeech = () => {
+  drawGround();
+  drawMountain();
+  life.draw();
+  updateEnemy();
+  drawEnemy();
+  drawCloud();
+  drawSpeechBubble(160, 200, "お手紙ありがとう！！");
+  bird.draw();
+  if (controller.isPressed) {
+    gameStatus.isStageClear = true;
+  }
+};
+
+const updateNextStageMove = () => {
+  gameStatus.isStageClear = false;
+  world.stage++;
+  world.x = 0;
+  bird.resetPosition();
+  loadMap(world.stage);
+};
+
+const updateGamePlay = () => {
   drawGround();
   drawMountain();
 
@@ -255,6 +252,43 @@ const draw = () => {
   drawCloud();
 
   world.x++;
+};
+
+const draw = () => {
+  updateImageLoading();
+
+  // titile scene
+  if (gameStatus.isGameStart === false) {
+    updateTitle();
+    return;
+  }
+
+  // game over scene
+  if (gameStatus.isGameOver) {
+    updateGameOver();
+    return;
+  }
+
+  // stage clear bird down scene
+  if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
+    updateStageClearBirdDown();
+    return;
+  }
+
+  // stage clear jelly speech scene
+  if (gameStatus.nextScene === "JellySpeech1") {
+    updateStageClearJellySpeech();
+    return;
+  }
+
+  // next stage move scene
+  if (gameStatus.isStageClear) {
+    updateNextStageMove();
+    return;
+  }
+
+  // game play scene
+  updateGamePlay();
 };
 
 const drawGround = () => {
