@@ -10,7 +10,6 @@ const gameStatus = {
   isGameStart: false,
   isGameClear: false,
   isGameOver: false,
-  isStageClear: false,
 };
 
 const mainContainer = {
@@ -108,56 +107,42 @@ const init = () => {
 const scene = [
   {
     name: "loadingImage",
-    transitionTime: 0,
-    maxTransitionTime: 0,
     update: () => {
       updateImageLoading();
     },
   },
   {
     name: "title",
-    transitionTime: 0,
-    maxTransitionTime: 0,
     update: () => {
       updateTitle();
     },
   },
   {
     name: "gameover",
-    transitionTime: 0,
-    maxTransitionTime: 0,
     update: () => {
       updateGameOver();
     },
   },
   {
     name: "stageClearBirdDown",
-    transitionTime: 0,
-    maxTransitionTime: 0,
     update: () => {
       updateStageClearBirdDown();
     },
   },
   {
     name: "stageClearJellySpeech",
-    transitionTime: 0,
-    maxTransitionTime: 0,
     update: () => {
       updateStageClearJellySpeech();
     },
   },
   {
     name: "nextStageMove",
-    transitionTime: 0,
-    maxTransitionTime: 0,
     update: () => {
       updateNextStageMove();
     },
   },
   {
     name: "gamePlay",
-    transitionTime: 0,
-    maxTransitionTime: 0,
     update: () => {
       updateGamePlay();
     },
@@ -244,7 +229,6 @@ const updateTitle = () => {
   }
   if (controller.isPressed) {
     gameStatus.isGameStart = true;
-    gameStatus.isStageClear = true;
     gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
   }
 };
@@ -283,13 +267,11 @@ const updateStageClearJellySpeech = () => {
   drawSpeechBubble(160, 200, "お手紙ありがとう！！");
   bird.draw();
   if (controller.isPressed) {
-    gameStatus.isStageClear = true;
     gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
   }
 };
 
 const updateNextStageMove = () => {
-  gameStatus.isStageClear = false;
   world.stage++;
   world.x = 0;
   bird.resetPosition();
@@ -313,11 +295,6 @@ const updateGamePlay = () => {
     gameStatus.currentScene = scene.find(
       (e) => e.name === "stageClearBirdDown"
     );
-    return;
-  }
-
-  if (gameStatus.isStageClear) {
-    gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
     return;
   }
 
@@ -588,7 +565,6 @@ const resetGame = () => {
   gameStatus.isGameStart = false;
   gameStatus.isGameClear = false;
   gameStatus.isGameOver = false;
-  gameStatus.isStageClear = false;
   world.stage = 0;
   world.x = 0;
   bird.resetPosition();
