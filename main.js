@@ -6,7 +6,7 @@ import { stageData } from "./data/stage-data.js";
 let enemyList = [];
 
 const gameStatus = {
-  currentScene: "title",
+  currentScene: null,
   isGameStart: false,
   isGameClear: false,
   isGameOver: false,
@@ -101,17 +101,71 @@ const init = () => {
 
   loadImages();
   loadMap(world.stage);
+  gameStatus.currentScene = scene.find((e) => e.name === "loadingImage");
   tick();
 };
 
 const scene = [
   {
+    name: "loadingImage",
+    transitionTime: 0,
+    maxTransitionTime: 0,
+    update: () => {
+      updateImageLoading();
+    },
+  },
+  {
     name: "title",
+    transitionTime: 0,
+    maxTransitionTime: 0,
+    update: () => {
+      updateTitle();
+    },
+  },
+  {
+    name: "gameover",
+    transitionTime: 0,
+    maxTransitionTime: 0,
+    update: () => {
+      updateGameOver();
+    },
+  },
+  {
+    name: "stageClearBirdDown",
+    transitionTime: 0,
+    maxTransitionTime: 0,
+    update: () => {
+      updateStageClearBirdDown();
+    },
+  },
+  {
+    name: "stageClearJellySpeech",
+    transitionTime: 0,
+    maxTransitionTime: 0,
+    update: () => {
+      updateStageClearJellySpeech();
+    },
+  },
+  {
+    name: "nextStageMove",
+    transitionTime: 0,
+    maxTransitionTime: 0,
+    update: () => {
+      updateNextStageMove();
+    },
+  },
+  {
+    name: "gamePlay",
+    transitionTime: 0,
+    maxTransitionTime: 0,
+    update: () => {
+      updateGamePlay();
+    },
   },
 ];
 
 const tick = () => {
-  draw();
+  gameStatus.currentScene.update();
   requestAnimationFrame(tick);
 };
 
@@ -169,6 +223,7 @@ const updateImageLoading = () => {
   }
   loaderContainer.progressBarElement.style.display = "none";
   loaderContainer.messageElement.style.display = "none";
+  gameStatus.currentScene = scene.find((e) => e.name === "title");
 };
 
 const updateTitle = () => {
@@ -190,14 +245,15 @@ const updateTitle = () => {
   if (controller.isPressed) {
     gameStatus.isGameStart = true;
     gameStatus.isStageClear = true;
+    gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
   }
-  return;
 };
 
 const updateGameOver = () => {
   drawGameOverMessage();
   if (controller.isPressed) {
     resetGame();
+    gameStatus.currentScene = scene.find((e) => e.name === "title");
   }
 };
 
@@ -211,7 +267,9 @@ const updateStageClearBirdDown = () => {
   drawCloud();
   bird.draw();
   if (bird.y >= canvas.height - 80) {
-    gameStatus.nextScene = "JellySpeech1";
+    gameStatus.currentScene = scene.find(
+      (e) => e.name === "stageClearJellySpeech"
+    );
   }
 };
 
@@ -226,6 +284,7 @@ const updateStageClearJellySpeech = () => {
   bird.draw();
   if (controller.isPressed) {
     gameStatus.isStageClear = true;
+    gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
   }
 };
 
@@ -235,6 +294,7 @@ const updateNextStageMove = () => {
   world.x = 0;
   bird.resetPosition();
   loadMap(world.stage);
+  gameStatus.currentScene = scene.find((e) => e.name === "gamePlay");
 };
 
 const updateGamePlay = () => {
@@ -243,52 +303,30 @@ const updateGamePlay = () => {
 
   bird.update();
   bird.draw();
-
   life.draw();
 
   updateEnemy();
   drawEnemy();
-
   drawCloud();
 
-  world.x++;
-};
-
-const draw = () => {
-  updateImageLoading();
-
-  // titile scene
-  if (gameStatus.isGameStart === false) {
-    updateTitle();
-    return;
-  }
-
-  // game over scene
-  if (gameStatus.isGameOver) {
-    updateGameOver();
-    return;
-  }
-
-  // stage clear bird down scene
   if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
-    updateStageClearBirdDown();
+    gameStatus.currentScene = scene.find(
+      (e) => e.name === "stageClearBirdDown"
+    );
     return;
   }
 
-  // stage clear jelly speech scene
-  if (gameStatus.nextScene === "JellySpeech1") {
-    updateStageClearJellySpeech();
-    return;
-  }
-
-  // next stage move scene
   if (gameStatus.isStageClear) {
-    updateNextStageMove();
+    gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
     return;
   }
 
-  // game play scene
-  updateGamePlay();
+  if (gameStatus.isGameOver) {
+    gameStatus.currentScene = scene.find((e) => e.name === "gameover");
+    return;
+  }
+
+  world.x++;
 };
 
 const drawGround = () => {
