@@ -4,6 +4,7 @@ import { mapData } from "./data/map-data.js";
 import { stageData } from "./data/stage-data.js";
 
 let enemyList = [];
+let messageList = [];
 
 const gameStatus = {
   currentScene: null,
@@ -196,9 +197,18 @@ const loadMap = (stage) => {
   enemyList = [];
   mapData
     .filter((e) => e.stage === stage)
+    .filter((e) => e.type === "enemy")
     .forEach((e) => {
       const ed = enemyData.filter((enemy) => enemy.name === e.name).pop();
       setEnemy(e.name, e.x, e.y, ed.width, ed.height, e.option, ed.update);
+    });
+
+  messageList = [];
+  mapData
+    .filter((e) => e.stage === stage)
+    .filter((e) => e.type === "message")
+    .forEach((e) => {
+      messageList.push(e);
     });
 };
 
@@ -265,7 +275,7 @@ const updateStageClearJellySpeech = () => {
   drawEnemy();
   drawCloud();
   canvas.context.globalAlpha = 1;
-  drawSpeechBubble(200, 360, "お手紙ありがとう！！", "left");
+  drawSpeechBubble(200, 360, "お手紙ありがとう！！");
   bird.draw();
   if (controller.isPressed) {
     gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
@@ -283,6 +293,7 @@ const updateNextStageMove = () => {
 const updateGamePlay = () => {
   drawGround();
   drawMountain();
+  updateMessage();
 
   bird.update();
   bird.draw();
@@ -503,15 +514,22 @@ const updateEnemy = () => {
   });
 };
 
+const updateMessage = () => {
+  messageList.forEach((message) => {
+    if (message.x - bird.x < 200 && message.x - bird.x > 50) {
+      drawSpeechBubble(message.x - world.x, message.y, message.text);
+    }
+  });
+};
+
 const drawGameOverMessage = () => {
-  edgeDirection === "right";
   canvas.context.font = "36px sans-serif";
   canvas.context.fillStyle = "red";
   canvas.context.textAlign = "center";
   canvas.context.fillText("Game Over", canvas.width / 2, canvas.height / 2);
 };
 
-const drawSpeechBubble = (x, y, text, edgeDirection = "right") => {
+const drawSpeechBubble = (x, y, text) => {
   const bubbleWidth = text.length * 20;
   const bubbleHeight = 40;
   const bubbleX = x - bubbleWidth / 2;
@@ -550,23 +568,13 @@ const drawSpeechBubble = (x, y, text, edgeDirection = "right") => {
   canvas.context.stroke();
   canvas.context.closePath();
 
-  if (edgeDirection === "right") {
-    const edgeX = bubbleX + bubbleWidth * 0.7;
-    const edgeY = bubbleY + bubbleHeight;
-    canvas.context.moveTo(edgeX, edgeY);
-    canvas.context.lineTo(edgeX + 20, edgeY + 20);
-    canvas.context.lineTo(edgeX - 20, edgeY);
-    canvas.context.fill();
-    canvas.context.stroke();
-  } else if (edgeDirection === "left") {
-    const edgeX = bubbleX + bubbleWidth * 0.3;
-    const edgeY = bubbleY + bubbleHeight;
-    canvas.context.moveTo(edgeX, edgeY);
-    canvas.context.lineTo(edgeX + 20, edgeY);
-    canvas.context.lineTo(edgeX - 20, edgeY + 20);
-    canvas.context.fill();
-    canvas.context.stroke();
-  }
+  const edgeX = bubbleX + bubbleWidth * 0.3;
+  const edgeY = bubbleY + bubbleHeight;
+  canvas.context.moveTo(edgeX, edgeY);
+  canvas.context.lineTo(edgeX + 20, edgeY);
+  canvas.context.lineTo(edgeX - 20, edgeY + 20);
+  canvas.context.fill();
+  canvas.context.stroke();
 
   canvas.context.fillStyle = "black";
   canvas.context.font = "18px sans-serif";
