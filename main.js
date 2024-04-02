@@ -264,7 +264,7 @@ const updateStageClearJellySpeech = () => {
   updateEnemy();
   drawEnemy();
   drawCloud();
-  drawSpeechBubble(160, 200, "お手紙ありがとう！！");
+  drawSpeechBubble(100, 300, "お手紙ありがとう！！");
   bird.draw();
   if (controller.isPressed) {
     gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
@@ -303,7 +303,9 @@ const updateGamePlay = () => {
     return;
   }
 
-  world.x++;
+  if (bird.isDead === false) {
+    world.x++;
+  }
 };
 
 const drawGround = () => {
@@ -504,7 +506,8 @@ const drawGameOverMessage = () => {
   canvas.context.globalAlpha = 1;
   canvas.context.font = "36px sans-serif";
   canvas.context.fillStyle = "red";
-  canvas.context.fillText("Game Over", 55, 200);
+  canvas.context.textAlign = "center";
+  canvas.context.fillText("Game Over", canvas.width / 2, canvas.height / 2);
 };
 
 const drawSpeechBubble = (x, y, text) => {
