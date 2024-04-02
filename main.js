@@ -119,9 +119,21 @@ const scene = [
     },
   },
   {
-    name: "gameover",
+    name: "gamePlay",
+    update: () => {
+      updateGamePlay();
+    },
+  },
+  {
+    name: "gameOver",
     update: () => {
       updateGameOver();
+    },
+  },
+  {
+    name: "gameClear",
+    update: () => {
+      updateGameClear();
     },
   },
   {
@@ -140,12 +152,6 @@ const scene = [
     name: "nextStageMove",
     update: () => {
       updateNextStageMove();
-    },
-  },
-  {
-    name: "gamePlay",
-    update: () => {
-      updateGamePlay();
     },
   },
 ];
@@ -251,6 +257,10 @@ const updateGameOver = () => {
   }
 };
 
+const updateGameClear = () => {
+  drawGameClearMessage();
+};
+
 const updateStageClearBirdDown = () => {
   bird.y += 3;
   drawGround();
@@ -284,6 +294,10 @@ const updateStageClearJellySpeech = () => {
 
 const updateNextStageMove = () => {
   world.stage++;
+  if (world.stage >= stageData.length) {
+    gameStatus.currentScene = scene.find((e) => e.name === "gameClear");
+    return;
+  }
   world.x = 0;
   bird.resetPosition();
   loadMap(world.stage);
@@ -311,7 +325,7 @@ const updateGamePlay = () => {
   }
 
   if (gameStatus.isGameOver) {
-    gameStatus.currentScene = scene.find((e) => e.name === "gameover");
+    gameStatus.currentScene = scene.find((e) => e.name === "gameOver");
     return;
   }
 
@@ -527,6 +541,13 @@ const drawGameOverMessage = () => {
   canvas.context.fillStyle = "red";
   canvas.context.textAlign = "center";
   canvas.context.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+};
+
+const drawGameClearMessage = () => {
+  canvas.context.font = "36px sans-serif";
+  canvas.context.fillStyle = "blue";
+  canvas.context.textAlign = "center";
+  canvas.context.fillText("Game Clear", canvas.width / 2, canvas.height / 2);
 };
 
 const drawSpeechBubble = (x, y, text) => {
