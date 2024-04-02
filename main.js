@@ -215,7 +215,7 @@ const updateTitle = () => {
   drawGround();
   drawMountain();
   drawEnemy();
-  drawSpeechBubble(160, 200, "画面をタップしてスタート");
+  drawSpeechBubble(160, 200, "画面をタップしてスタート", "left");
   canvas.context.drawImage(
     images.find((image) => image.name === "title").element,
     70,
@@ -264,7 +264,8 @@ const updateStageClearJellySpeech = () => {
   updateEnemy();
   drawEnemy();
   drawCloud();
-  drawSpeechBubble(100, 300, "お手紙ありがとう！！");
+  canvas.context.globalAlpha = 1;
+  drawSpeechBubble(200, 360, "お手紙ありがとう！！", "left");
   bird.draw();
   if (controller.isPressed) {
     gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
@@ -503,14 +504,14 @@ const updateEnemy = () => {
 };
 
 const drawGameOverMessage = () => {
-  canvas.context.globalAlpha = 1;
+  edgeDirection === "right";
   canvas.context.font = "36px sans-serif";
   canvas.context.fillStyle = "red";
   canvas.context.textAlign = "center";
   canvas.context.fillText("Game Over", canvas.width / 2, canvas.height / 2);
 };
 
-const drawSpeechBubble = (x, y, text) => {
+const drawSpeechBubble = (x, y, text, edgeDirection = "right") => {
   const bubbleWidth = text.length * 20;
   const bubbleHeight = 40;
   const bubbleX = x - bubbleWidth / 2;
@@ -549,13 +550,23 @@ const drawSpeechBubble = (x, y, text) => {
   canvas.context.stroke();
   canvas.context.closePath();
 
-  const edgeX = bubbleX + bubbleWidth * 0.7;
-  const edgeY = bubbleY + bubbleHeight;
-  canvas.context.moveTo(edgeX, edgeY);
-  canvas.context.lineTo(edgeX + 20, edgeY + 20);
-  canvas.context.lineTo(edgeX - 20, edgeY);
-  canvas.context.fill();
-  canvas.context.stroke();
+  if (edgeDirection === "right") {
+    const edgeX = bubbleX + bubbleWidth * 0.7;
+    const edgeY = bubbleY + bubbleHeight;
+    canvas.context.moveTo(edgeX, edgeY);
+    canvas.context.lineTo(edgeX + 20, edgeY + 20);
+    canvas.context.lineTo(edgeX - 20, edgeY);
+    canvas.context.fill();
+    canvas.context.stroke();
+  } else if (edgeDirection === "left") {
+    const edgeX = bubbleX + bubbleWidth * 0.3;
+    const edgeY = bubbleY + bubbleHeight;
+    canvas.context.moveTo(edgeX, edgeY);
+    canvas.context.lineTo(edgeX + 20, edgeY);
+    canvas.context.lineTo(edgeX - 20, edgeY + 20);
+    canvas.context.fill();
+    canvas.context.stroke();
+  }
 
   canvas.context.fillStyle = "black";
   canvas.context.font = "18px sans-serif";

@@ -54,9 +54,27 @@ export const mapData = [
     },
   },
   {
+    stage: 1,
+    name: "mailbox",
+    x: 1140,
+    y: 400,
+    option: {
+      // empty
+    },
+  },
+  {
     stage: 2,
     name: "jelly_blue",
     x: 1100,
+    y: 400,
+    option: {
+      // empty
+    },
+  },
+  {
+    stage: 2,
+    name: "mailbox",
+    x: 1140,
     y: 400,
     option: {
       // empty
@@ -72,9 +90,27 @@ export const mapData = [
     },
   },
   {
+    stage: 3,
+    name: "mailbox",
+    x: 1140,
+    y: 400,
+    option: {
+      // empty
+    },
+  },
+  {
     stage: 4,
     name: "jelly_blue",
     x: 1100,
+    y: 400,
+    option: {
+      // empty
+    },
+  },
+  {
+    stage: 4,
+    name: "mailbox",
+    x: 1140,
     y: 400,
     option: {
       // empty

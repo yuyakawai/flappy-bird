@@ -82,4 +82,12 @@ export const enemyData = [
       // empty
     },
   },
+  {
+    name: "mailbox",
+    width: 32,
+    height: 32,
+    update: (e) => {
+      // empty
+    },
+  },
 ];
