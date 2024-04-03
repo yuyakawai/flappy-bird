@@ -262,7 +262,7 @@ const updateGameClear = () => {
 };
 
 const updateStageClearBirdDown = () => {
-  bird.y += 3;
+  bird.y += bird.downSpeed;
   drawGround();
   drawMountain();
   life.draw();
@@ -270,7 +270,7 @@ const updateStageClearBirdDown = () => {
   drawEnemy();
   drawCloud();
   bird.draw();
-  if (bird.y >= canvas.height - 80) {
+  if (bird.y > bird.maxY) {
     gameStatus.currentScene = scene.find(
       (e) => e.name === "stageClearJellySpeech"
     );
@@ -414,6 +414,10 @@ const life = {
 const bird = {
   x: 50,
   y: 200,
+  minY: 40,
+  maxY: 400,
+  downSpeed: 3,
+  upSpeed: 4,
   width: 32,
   height: 32,
   isWingUp: true,
@@ -428,19 +432,19 @@ const bird = {
     }
 
     if (bird.isDead) {
-      bird.y += 3;
+      bird.y += bird.downSpeed;
       return;
     }
 
     bird.x++;
     if (controller.isPressed) {
       bird.isWingUp = false;
-      bird.y -= 4;
+      bird.y -= bird.upSpeed;
     } else {
       bird.isWingUp = true;
-      bird.y += 3;
+      bird.y += bird.downSpeed;
     }
-    bird.y = Math.max(0, Math.min(bird.y, canvas.height - 80));
+    bird.y = Math.max(bird.minY, Math.min(bird.y, bird.maxY));
 
     if (bird.isDamage) {
       bird.damageTime++;

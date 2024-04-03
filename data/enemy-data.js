@@ -83,6 +83,15 @@ export const enemyData = [
     },
   },
   {
+    name: "snowball",
+    width: 32,
+    height: 32,
+    update: (e) => {
+      e.x--;
+      e.y--;
+    },
+  },
+  {
     name: "mailbox",
     width: 32,
     height: 32,

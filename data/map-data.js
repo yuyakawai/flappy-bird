@@ -42,20 +42,20 @@ export const mapData = [
   {
     stage: 1,
     type: "enemy",
-    name: "scarecrow",
-    x: 700,
+    name: "snowman",
+    x: 300,
     y: 400,
     option: {
       // empty
     },
   },
-  {
-    stage: 1,
-    type: "message",
-    text: "ガンバッテクレタマエ",
-    x: 800,
-    y: 370,
-  },
+  //{
+  //  stage: 1,
+  //  type: "message",
+  //  text: "ガンバッテクレタマエ",
+  //  x: 800,
+  //  y: 370,
+  //},
   {
     stage: 1,
     type: "enemy",
