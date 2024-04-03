@@ -4,6 +4,7 @@ import { mapData } from "./data/map-data.js";
 import { stageData } from "./data/stage-data.js";
 
 let enemyList = [];
+let optionList = [];
 let messageList = [];
 
 const gameStatus = {
@@ -209,6 +210,14 @@ const loadMap = (stage) => {
       setEnemy(e.name, e.x, e.y, ed.width, ed.height, e.option, ed.update);
     });
 
+  optionList = [];
+  mapData
+    .filter((e) => e.stage === stage)
+    .filter((e) => e.type === "option")
+    .forEach((e) => {
+      optionList.push(e);
+    });
+
   messageList = [];
   mapData
     .filter((e) => e.stage === stage)
@@ -314,6 +323,7 @@ const updateGamePlay = () => {
   life.draw();
 
   updateEnemy();
+  updateOption();
   drawEnemy();
   drawCloud();
 
@@ -529,6 +539,25 @@ const drawEnemy = () => {
 const updateEnemy = () => {
   enemyList.forEach((enemy) => {
     enemy.update(enemy);
+  });
+};
+
+const updateOption = () => {
+  optionList.forEach((option) => {
+    if (option.isActive === false && option.x - bird.x < 200) {
+      const ed = enemyData.filter((enemy) => enemy.name === option.name).pop();
+      setEnemy(
+        option.name,
+        option.x,
+        option.y,
+        ed.width,
+        ed.height,
+        () => {},
+        ed.update
+      );
+
+      option.isActive = true;
+    }
   });
 };
 

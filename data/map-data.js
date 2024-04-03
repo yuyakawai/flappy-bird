@@ -49,6 +49,14 @@ export const mapData = [
       // empty
     },
   },
+  {
+    stage: 1,
+    type: "option",
+    name: "snowball",
+    x: 300,
+    y: 400,
+    isActive: false,
+  },
   //{
   //  stage: 1,
   //  type: "message",
