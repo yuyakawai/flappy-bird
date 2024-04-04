@@ -552,7 +552,7 @@ const updateOption = () => {
         option.y,
         ed.width,
         ed.height,
-        () => {},
+        option.option,
         ed.update
       );
 

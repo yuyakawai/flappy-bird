@@ -56,6 +56,12 @@ export const mapData = [
     x: 300,
     y: 400,
     isActive: false,
+    option: {
+      initSpeedX: -1,
+      initSpeedY: -10,
+      accelerationX: 0,
+      accelerationY: 0.2,
+    },
   },
   //{
   //  stage: 1,

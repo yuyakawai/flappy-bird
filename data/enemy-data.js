@@ -87,8 +87,10 @@ export const enemyData = [
     width: 32,
     height: 32,
     update: (e) => {
-      e.x--;
-      e.y--;
+      e.option.initSpeedX += e.option.accelerationX;
+      e.option.initSpeedY += e.option.accelerationY;
+      e.x += e.option.initSpeedX;
+      e.y += e.option.initSpeedY;
     },
   },
   {
