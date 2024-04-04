@@ -648,5 +648,8 @@ const resetGame = () => {
   bird.isDamage = false;
   bird.damageTime = 0;
   life.count = life.max;
+  mapData
+    .filter((e) => e.type === "option")
+    .forEach((e) => (e.isActive = false));
   loadMap(world.stage);
 };
