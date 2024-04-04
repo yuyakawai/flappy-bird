@@ -497,10 +497,10 @@ const bird = {
     if (
       enemyList.some(
         (enemy) =>
-          bird.x + bird.width > enemy.x &&
-          bird.x < enemy.x + enemy.width &&
-          bird.y + bird.height > enemy.y &&
-          bird.y < enemy.y + enemy.height
+          bird.x + bird.width > enemy.x + enemy.collisionMargin &&
+          bird.x < enemy.x - enemy.collisionMargin + enemy.width &&
+          bird.y + bird.height > enemy.y + enemy.collisionMargin &&
+          bird.y < enemy.y - enemy.collisionMargin + enemy.height
       )
     ) {
       life.count--;

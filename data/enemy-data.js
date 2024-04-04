@@ -3,6 +3,7 @@ export const enemyData = [
     name: "scarecrow",
     width: 32,
     height: 38,
+    collisionMargin: 0,
     update: (e) => {
       // empty
     },
@@ -11,6 +12,7 @@ export const enemyData = [
     name: "balloon_red",
     width: 32,
     height: 38,
+    collisionMargin: 0,
     update: (e) => {
       e.option.time++;
       e.y += Math.sin(e.option.time * 0.05) * 3;
@@ -20,6 +22,7 @@ export const enemyData = [
     name: "balloon_blue",
     width: 32,
     height: 38,
+    collisionMargin: 4,
     update: (e) => {
       e.option.time++;
       e.y += Math.sin(e.option.time * 0.05) * 3;
@@ -29,6 +32,7 @@ export const enemyData = [
     name: "balloon_green",
     width: 32,
     height: 38,
+    ollisionMargin: 4,
     update: (e) => {
       e.option.time++;
       e.y += Math.sin(e.option.time * 0.05) * 3;
@@ -38,6 +42,7 @@ export const enemyData = [
     name: "jelly_blue",
     width: 32,
     height: 32,
+    collisionMargin: 0,
     update: (e) => {
       // empty
     },
@@ -46,6 +51,7 @@ export const enemyData = [
     name: "jelly_pink",
     width: 32,
     height: 32,
+    collisionMargin: 0,
     update: (e) => {
       // empty
     },
@@ -54,6 +60,7 @@ export const enemyData = [
     name: "jelly_yellow",
     width: 32,
     height: 32,
+    collisionMargin: 0,
     update: (e) => {
       // empty
     },
@@ -62,6 +69,7 @@ export const enemyData = [
     name: "jelly_green",
     width: 32,
     height: 32,
+    collisionMargin: 0,
     update: (e) => {
       // empty
     },
@@ -70,6 +78,7 @@ export const enemyData = [
     name: "jelly_gray",
     width: 32,
     height: 32,
+    collisionMargin: 0,
     update: (e) => {
       // empty
     },
@@ -78,6 +87,7 @@ export const enemyData = [
     name: "snowman",
     width: 32,
     height: 38,
+    collisionMargin: 0,
     update: (e) => {
       // empty
     },
@@ -86,6 +96,7 @@ export const enemyData = [
     name: "snowball",
     width: 32,
     height: 32,
+    collisionMargin: 8,
     update: (e) => {
       e.option.initSpeedX += e.option.accelerationX;
       e.option.initSpeedY += e.option.accelerationY;
@@ -97,6 +108,7 @@ export const enemyData = [
     name: "mailbox",
     width: 32,
     height: 32,
+    collisionMargin: 0,
     update: (e) => {
       // empty
     },
