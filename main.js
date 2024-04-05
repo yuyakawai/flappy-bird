@@ -214,6 +214,7 @@ const loadMap = (stage) => {
         ed.width,
         ed.height,
         ed.collisionMargin,
+        ed.isRotateAnimation,
         e.option,
         ed.update
       );
@@ -530,6 +531,7 @@ const setEnemy = (
   width,
   height,
   collisionMargin,
+  isRotateAnimation,
   option,
   update
 ) => {
@@ -540,6 +542,7 @@ const setEnemy = (
     width: width,
     height: height,
     collisionMargin: collisionMargin,
+    isRotateAnimation: isRotateAnimation,
     option: option,
     update: update,
   });
@@ -547,11 +550,23 @@ const setEnemy = (
 
 const drawEnemy = () => {
   enemyList.forEach((enemy) => {
+    canvas.context.save();
+    canvas.context.translate(
+      enemy.x + enemy.width / 2 - world.x,
+      enemy.y + enemy.height / 2
+    );
+
+    if (enemy.isRotateAnimation) {
+      enemy.option.rotateTime++;
+      canvas.context.rotate(enemy.option.rotateTime * 8 * (Math.PI / 180));
+    }
+
     canvas.context.drawImage(
       images.find((image) => image.name === enemy.name).element,
-      enemy.x - world.x,
-      enemy.y
+      -enemy.width / 2,
+      -enemy.height / 2
     );
+    canvas.context.restore();
   });
 };
 
@@ -572,6 +587,7 @@ const updateOption = () => {
         ed.width,
         ed.height,
         ed.collisionMargin,
+        ed.isRotateAnimation,
         option.option,
         ed.update
       );

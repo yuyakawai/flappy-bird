@@ -52,8 +52,23 @@ export const mapData = [
   {
     stage: 1,
     type: "option",
-    name: "snowball",
+    name: "sickle",
     x: 300,
+    y: 400,
+    isActive: false,
+    option: {
+      rotateTime: 0,
+      initSpeedX: -1,
+      initSpeedY: -10,
+      accelerationX: 0,
+      accelerationY: 0.2,
+    },
+  },
+  {
+    stage: 1,
+    type: "option",
+    name: "snowball",
+    x: 700,
     y: 400,
     isActive: false,
     option: {
