@@ -207,7 +207,16 @@ const loadMap = (stage) => {
     .filter((e) => e.type === "enemy")
     .forEach((e) => {
       const ed = enemyData.filter((enemy) => enemy.name === e.name).pop();
-      setEnemy(e.name, e.x, e.y, ed.width, ed.height, e.option, ed.update);
+      setEnemy(
+        e.name,
+        e.x,
+        e.y,
+        ed.width,
+        ed.height,
+        ed.collisionMargin,
+        e.option,
+        ed.update
+      );
     });
 
   optionList = [];
@@ -514,13 +523,23 @@ const bird = {
   },
 };
 
-const setEnemy = (name, x, y, width, height, option, update) => {
+const setEnemy = (
+  name,
+  x,
+  y,
+  width,
+  height,
+  collisionMargin,
+  option,
+  update
+) => {
   enemyList.push({
     name: name,
     x: x,
     y: y,
     width: width,
     height: height,
+    collisionMargin: collisionMargin,
     option: option,
     update: update,
   });
@@ -552,6 +571,7 @@ const updateOption = () => {
         option.y,
         ed.width,
         ed.height,
+        ed.collisionMargin,
         option.option,
         ed.update
       );

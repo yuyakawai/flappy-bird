@@ -3,7 +3,7 @@ export const enemyData = [
     name: "scarecrow",
     width: 32,
     height: 38,
-    collisionMargin: 0,
+    collisionMargin: 8,
     update: (e) => {
       // empty
     },
@@ -87,7 +87,7 @@ export const enemyData = [
     name: "snowman",
     width: 32,
     height: 38,
-    collisionMargin: 0,
+    collisionMargin: 8,
     update: (e) => {
       // empty
     },
