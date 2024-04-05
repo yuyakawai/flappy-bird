@@ -215,7 +215,7 @@ const loadMap = (stage) => {
         ed.height,
         ed.collisionMargin,
         ed.isRotateAnimation,
-        e.option,
+        { ...e.option.map },
         ed.update
       );
     });
