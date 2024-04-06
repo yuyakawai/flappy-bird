@@ -207,15 +207,16 @@ const loadMap = (stage) => {
     .filter((e) => e.type === "enemy")
     .forEach((e) => {
       const ed = enemyData.filter((enemy) => enemy.name === e.name).pop();
+      let copyEnemy = structuredClone(e);
       setEnemy(
-        e.name,
-        e.x,
-        e.y,
+        copyEnemy.name,
+        copyEnemy.x,
+        copyEnemy.y,
         ed.width,
         ed.height,
         ed.collisionMargin,
         ed.isRotateAnimation,
-        { ...e.option.map },
+        copyEnemy.option,
         ed.update
       );
     });
@@ -578,17 +579,20 @@ const updateEnemy = () => {
 
 const updateOption = () => {
   optionList.forEach((option) => {
-    if (option.isActive === false && option.x - bird.x < 200) {
-      const ed = enemyData.filter((enemy) => enemy.name === option.name).pop();
+    let copyOption = structuredClone(option);
+    if (copyOption.isActive === false && copyOption.x - bird.x < 200) {
+      const ed = enemyData
+        .filter((enemy) => enemy.name === copyOption.name)
+        .pop();
       setEnemy(
-        option.name,
-        option.x,
-        option.y,
+        copyOption.name,
+        copyOption.x,
+        copyOption.y,
         ed.width,
         ed.height,
         ed.collisionMargin,
         ed.isRotateAnimation,
-        option.option,
+        copyOption.option,
         ed.update
       );
 
