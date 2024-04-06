@@ -28,6 +28,7 @@ export const enemyData = [
     isRotateAnimation: false,
     update: (e) => {
       e.option.time++;
+      e.x--;
       e.y += Math.sin(e.option.time * 0.05) * 3;
     },
   },
@@ -39,6 +40,7 @@ export const enemyData = [
     isRotateAnimation: false,
     update: (e) => {
       e.option.time++;
+      e.x -= Math.sin(e.option.time * 0.1) * 3;
       e.y += Math.sin(e.option.time * 0.05) * 3;
     },
   },
