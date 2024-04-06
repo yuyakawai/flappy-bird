@@ -52,7 +52,7 @@ export const mapData = [
   {
     stage: 1,
     type: "enemy",
-    name: "snowman",
+    name: "scarecrow",
     x: 300,
     y: 400,
     option: {

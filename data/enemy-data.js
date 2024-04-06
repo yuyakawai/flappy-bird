@@ -36,7 +36,7 @@ export const enemyData = [
     name: "balloon_green",
     width: 32,
     height: 38,
-    ollisionMargin: 4,
+    collisionMargin: 4,
     isRotateAnimation: false,
     update: (e) => {
       e.option.time++;
