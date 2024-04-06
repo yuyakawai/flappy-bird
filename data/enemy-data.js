@@ -6,7 +6,13 @@ export const enemyData = [
     collisionMargin: 8,
     isRotateAnimation: false,
     update: (e) => {
-      // empty
+      if (e.option.isMove) {
+        e.option.initSpeedX += e.option.accelerationX;
+        e.option.initSpeedY += e.option.accelerationY;
+        e.x += e.option.initSpeedX;
+        e.y += e.option.initSpeedY;
+        e.y = Math.min(e.y, 400);
+      }
     },
   },
   {
