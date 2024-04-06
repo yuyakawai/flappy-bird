@@ -580,7 +580,10 @@ const updateEnemy = () => {
 const updateOption = () => {
   optionList.forEach((option) => {
     let copyOption = structuredClone(option);
-    if (copyOption.isActive === false && copyOption.x - bird.x < 200) {
+    if (
+      copyOption.isActive === false &&
+      copyOption.x - bird.x < copyOption.option.activeDistance
+    ) {
       const ed = enemyData
         .filter((enemy) => enemy.name === copyOption.name)
         .pop();

@@ -57,6 +57,33 @@ export const mapData = [
     y: 400,
     isActive: false,
     option: {
+      activeDistance: 300,
+      rotateTime: 0,
+      initSpeedX: -1,
+      initSpeedY: -10,
+      accelerationX: 0,
+      accelerationY: 0.2,
+    },
+  },
+  {
+    stage: 1,
+    type: "enemy",
+    name: "jelly_gray",
+    x: 700,
+    y: 400,
+    option: {
+      // empty
+    },
+  },
+  {
+    stage: 1,
+    type: "option",
+    name: "rock",
+    x: 700,
+    y: 400,
+    isActive: false,
+    option: {
+      activeDistance: 300,
       rotateTime: 0,
       initSpeedX: -1,
       initSpeedY: -10,
@@ -67,13 +94,15 @@ export const mapData = [
   {
     stage: 1,
     type: "option",
-    name: "snowball",
+    name: "rock",
     x: 700,
     y: 400,
     isActive: false,
     option: {
-      initSpeedX: -1,
-      initSpeedY: -10,
+      activeDistance: 50,
+      rotateTime: 0,
+      initSpeedX: 0.5,
+      initSpeedY: -15,
       accelerationX: 0,
       accelerationY: 0.2,
     },

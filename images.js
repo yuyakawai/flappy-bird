@@ -1,11 +1,5 @@
 export const images = [
   {
-    name: "ball",
-    path: "image/ball.png",
-    element: null,
-    isLoaded: false,
-  },
-  {
     name: "balloon_blue",
     path: "image/balloon_blue.png",
     element: null,
@@ -99,6 +93,12 @@ export const images = [
   {
     name: "mailbox",
     path: "image/mailbox.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
+    name: "rock",
+    path: "image/rock.png",
     element: null,
     isLoaded: false,
   },

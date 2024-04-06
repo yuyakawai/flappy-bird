@@ -138,4 +138,17 @@ export const enemyData = [
       // empty
     },
   },
+  {
+    name: "rock",
+    width: 32,
+    height: 32,
+    collisionMargin: 8,
+    isRotateAnimation: false,
+    update: (e) => {
+      e.option.initSpeedX += e.option.accelerationX;
+      e.option.initSpeedY += e.option.accelerationY;
+      e.x += e.option.initSpeedX;
+      e.y += e.option.initSpeedY;
+    },
+  },
 ];
