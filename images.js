@@ -97,6 +97,12 @@ export const images = [
     isLoaded: false,
   },
   {
+    name: "number",
+    path: "image/number.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
     name: "rock",
     path: "image/rock.png",
     element: null,
@@ -129,6 +135,12 @@ export const images = [
   {
     name: "snowman",
     path: "image/snowman.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
+    name: "stage",
+    path: "image/stage.png",
     element: null,
     isLoaded: false,
   },

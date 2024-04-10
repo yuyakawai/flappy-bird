@@ -328,6 +328,7 @@ const updateGamePlay = () => {
   drawGround();
   drawMountain();
   updateMessage();
+  drawStageStatus();
 
   bird.update();
   bird.draw();
@@ -414,6 +415,30 @@ const drawMountain = () => {
     canvas.context.stroke();
     canvas.context.closePath();
   });
+};
+
+const drawStageStatus = () => {
+  canvas.context.globalAlpha = 1;
+  canvas.context.drawImage(
+    images.find((image) => image.name === "stage").element,
+    170,
+    0
+  );
+
+  canvas.context.drawImage(
+    images.find((image) => image.name === "number").element,
+    (images.find((image) => image.name === "number").element.width / 5) *
+      world.stage -
+      0,
+    0,
+    (images.find((image) => image.name === "number").element.width / 5) *
+      world.stage,
+    images.find((image) => image.name === "number").element.height,
+    260,
+    0,
+    22,
+    22
+  );
 };
 
 const life = {
