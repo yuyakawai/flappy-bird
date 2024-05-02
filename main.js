@@ -285,6 +285,7 @@ const updateStageClearBirdDown = () => {
   bird.y += bird.downSpeed;
   drawGround();
   drawMountain();
+  drawStageStatus();
   life.draw();
   updateEnemy();
   drawEnemy();
@@ -300,6 +301,7 @@ const updateStageClearBirdDown = () => {
 const updateStageClearJellySpeech = () => {
   drawGround();
   drawMountain();
+  drawStageStatus();
   life.draw();
   updateEnemy();
   drawEnemy();
@@ -425,19 +427,40 @@ const drawStageStatus = () => {
     0
   );
 
+  const numberImageElement = images.find(
+    (image) => image.name === "number"
+  ).element;
+  const numberImageWidth = numberImageElement.width / 5;
+  const numberImageHeight = numberImageElement.height;
+
   canvas.context.drawImage(
-    images.find((image) => image.name === "number").element,
-    (images.find((image) => image.name === "number").element.width / 5) *
-      world.stage -
-      0,
+    numberImageElement,
+    numberImageWidth * (world.stage - 1),
     0,
-    (images.find((image) => image.name === "number").element.width / 5) *
-      world.stage,
-    images.find((image) => image.name === "number").element.height,
-    260,
+    numberImageWidth,
+    numberImageHeight,
+    262,
     0,
-    22,
-    22
+    numberImageWidth,
+    numberImageHeight
+  );
+
+  canvas.context.drawImage(
+    numberImageElement,
+    numberImageWidth * 3,
+    0,
+    numberImageWidth,
+    numberImageHeight,
+    285,
+    15,
+    numberImageWidth,
+    numberImageHeight
+  );
+
+  canvas.context.drawImage(
+    images.find((image) => image.name === "slash").element,
+    271,
+    0
   );
 };
 

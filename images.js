@@ -121,6 +121,12 @@ export const images = [
     isLoaded: false,
   },
   {
+    name: "slash",
+    path: "image/slash.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
     name: "snowball",
     path: "image/snowball.png",
     element: null,
