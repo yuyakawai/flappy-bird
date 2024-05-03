@@ -439,7 +439,7 @@ const drawStageStatus = () => {
     0,
     numberImageWidth,
     numberImageHeight,
-    262,
+    263,
     0,
     numberImageWidth,
     numberImageHeight
@@ -460,7 +460,7 @@ const drawStageStatus = () => {
   canvas.context.drawImage(
     images.find((image) => image.name === "slash").element,
     271,
-    0
+    2
   );
 };
 
