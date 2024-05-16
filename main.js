@@ -373,7 +373,7 @@ const stageMessage = {
       return;
     }
 
-    canvas.context.globalAlpha = 0.7;
+    canvas.context.globalAlpha = 0.8;
     canvas.context.drawImage(
       images.find((image) => image.name === "stage" + world.stage).element,
       screenContainer.width * 0.2,
