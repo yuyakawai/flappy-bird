@@ -151,6 +151,12 @@ export const images = [
     isLoaded: false,
   },
   {
+    name: "stage1",
+    path: "image/stage1.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
     name: "title",
     path: "image/title.png",
     element: null,

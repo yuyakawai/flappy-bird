@@ -341,6 +341,13 @@ const updateGamePlay = () => {
   drawEnemy();
   drawCloud();
 
+  canvas.context.globalAlpha = 1;
+  canvas.context.drawImage(
+    images.find((image) => image.name === "stage1").element,
+    screenContainer.width * 0.2,
+    screenContainer.height * 0.4
+  );
+
   if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
     gameStatus.currentScene = scene.find(
       (e) => e.name === "stageClearBirdDown"
