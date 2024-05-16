@@ -321,6 +321,7 @@ const updateNextStageMove = () => {
     return;
   }
   world.x = 0;
+  stageMessage.wait = 0;
   bird.resetPosition();
   loadMap(world.stage);
   gameStatus.currentScene = scene.find((e) => e.name === "gamePlay");
@@ -341,12 +342,7 @@ const updateGamePlay = () => {
   drawEnemy();
   drawCloud();
 
-  canvas.context.globalAlpha = 1;
-  canvas.context.drawImage(
-    images.find((image) => image.name === "stage1").element,
-    screenContainer.width * 0.2,
-    screenContainer.height * 0.4
-  );
+  stageMessage.draw();
 
   if (world.x > stageData.find((e) => e.stage === world.stage).stageGoalX) {
     gameStatus.currentScene = scene.find(
@@ -363,6 +359,27 @@ const updateGamePlay = () => {
   if (bird.isDead === false) {
     world.x++;
   }
+};
+
+const stageMessage = {
+  wait: 0,
+  draw: () => {
+    stageMessage.wait++;
+
+    if (
+      Math.trunc(stageMessage.wait / 10) % 4 === 0 ||
+      stageMessage.wait > 120
+    ) {
+      return;
+    }
+
+    canvas.context.globalAlpha = 0.7;
+    canvas.context.drawImage(
+      images.find((image) => image.name === "stage" + world.stage).element,
+      screenContainer.width * 0.2,
+      screenContainer.height * 0.4
+    );
+  },
 };
 
 const drawGround = () => {
