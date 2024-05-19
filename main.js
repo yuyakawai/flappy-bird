@@ -771,7 +771,7 @@ const drawSpeechBubble = (x, y, text) => {
 
 const drawGeneralMessage = (x, y, text) => {
   const line = text.split("\r\n");
-  const lineHight = 40;
+  const lineHight = 35;
 
   const borderWidth = Math.max(...line.map((e) => e.length)) * 20;
   const borderHeight = line.length * lineHight;
@@ -817,11 +817,7 @@ const drawGeneralMessage = (x, y, text) => {
   canvas.context.textBaseline = "middle";
 
   line.forEach((line, index) => {
-    canvas.context.fillText(
-      line,
-      x,
-      y - lineHight / 2 + (index - 1) * lineHight
-    );
+    canvas.context.fillText(line, x, y - lineHight / 2 + index * lineHight);
   });
 };
 
