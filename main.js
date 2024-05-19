@@ -251,12 +251,16 @@ const updateTitle = () => {
   drawGround();
   drawMountain();
   drawEnemy();
-  drawSpeechBubble(160, 200, "画面をタップしてスタート", "left");
-  canvas.context.drawImage(
-    images.find((image) => image.name === "title").element,
-    70,
-    30
+  drawGeneralMessage(
+    160,
+    200,
+    "★ゲーム説明★\r\n障害物に当たらないようにして\r\n手紙を届けよう！！\r\n画面をタップ(クリック)すると\r\n主人公のヒヨ丸が上昇します。"
   );
+  //canvas.context.drawImage(
+  //  images.find((image) => image.name === "title").element,
+  //  70,
+  //  30
+  //);
   drawCloud();
 
   world.x++;
@@ -763,6 +767,62 @@ const drawSpeechBubble = (x, y, text) => {
   canvas.context.textAlign = "center";
   canvas.context.textBaseline = "middle";
   canvas.context.fillText(text, x, y - bubbleHeight / 2);
+};
+
+const drawGeneralMessage = (x, y, text) => {
+  const line = text.split("\r\n");
+  const lineHight = 40;
+
+  const borderWidth = Math.max(...line.map((e) => e.length)) * 20;
+  const borderHeight = line.length * lineHight;
+  const borderX = x - borderWidth / 2;
+  const borderY = y - borderHeight / 2;
+
+  canvas.context.fillStyle = "lightyellow";
+  canvas.context.strokeStyle = "burlywood";
+  canvas.context.lineWidth = 1;
+  canvas.context.beginPath();
+  canvas.context.moveTo(borderX + 10, borderY);
+  canvas.context.lineTo(borderX + borderWidth - 10, borderY);
+  canvas.context.quadraticCurveTo(
+    borderX + borderWidth,
+    borderY,
+    borderX + borderWidth,
+    borderY + 10
+  );
+  canvas.context.lineTo(borderX + borderWidth, borderY + borderHeight - 10);
+  canvas.context.quadraticCurveTo(
+    borderX + borderWidth,
+    borderY + borderHeight,
+    borderX + borderWidth - 10,
+    borderY + borderHeight
+  );
+  canvas.context.lineTo(borderX + 10, borderY + borderHeight);
+  canvas.context.quadraticCurveTo(
+    borderX,
+    borderY + borderHeight,
+    borderX,
+    borderY + borderHeight - 10
+  );
+  canvas.context.lineTo(borderX, borderY + 10);
+  canvas.context.quadraticCurveTo(borderX, borderY, borderX + 10, borderY);
+
+  canvas.context.fill();
+  canvas.context.stroke();
+  canvas.context.closePath();
+
+  canvas.context.fillStyle = "black";
+  canvas.context.font = "18px sans-serif";
+  canvas.context.textAlign = "center";
+  canvas.context.textBaseline = "middle";
+
+  line.forEach((line, index) => {
+    canvas.context.fillText(
+      line,
+      x,
+      y - lineHight / 2 + (index - 1) * lineHight
+    );
+  });
 };
 
 const resetGame = () => {
