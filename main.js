@@ -702,6 +702,15 @@ const drawGameClearMessage = () => {
   );
 };
 
+const drawStageClearMessage = () => {
+  canvas.context.globalAlpha = 0.8;
+  canvas.context.drawImage(
+    images.find((image) => image.name === "stageclear").element,
+    screenContainer.width * 0.03,
+    screenContainer.height * 0.4
+  );
+};
+
 const drawSpeechBubble = (x, y, text) => {
   const bubbleWidth = text.length * 20;
   const bubbleHeight = 40;
