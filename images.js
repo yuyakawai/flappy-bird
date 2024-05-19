@@ -43,6 +43,18 @@ export const images = [
     isLoaded: false,
   },
   {
+    name: "gameclear",
+    path: "image/gameclear.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
+    name: "gameover",
+    path: "image/gameover.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
     name: "heart_full",
     path: "image/heart_full.png",
     element: null,
@@ -171,6 +183,12 @@ export const images = [
   {
     name: "stage4",
     path: "image/stage4.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
+    name: "stageclear",
+    path: "image/stageclear.png",
     element: null,
     isLoaded: false,
   },

@@ -685,17 +685,21 @@ const updateMessage = () => {
 };
 
 const drawGameOverMessage = () => {
-  canvas.context.font = "36px sans-serif";
-  canvas.context.fillStyle = "red";
-  canvas.context.textAlign = "center";
-  canvas.context.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+  canvas.context.globalAlpha = 0.8;
+  canvas.context.drawImage(
+    images.find((image) => image.name === "gameover").element,
+    screenContainer.width * 0.1,
+    screenContainer.height * 0.4
+  );
 };
 
 const drawGameClearMessage = () => {
-  canvas.context.font = "36px sans-serif";
-  canvas.context.fillStyle = "blue";
-  canvas.context.textAlign = "center";
-  canvas.context.fillText("Game Clear", canvas.width / 2, canvas.height / 2);
+  canvas.context.globalAlpha = 0.8;
+  canvas.context.drawImage(
+    images.find((image) => image.name === "gameclear").element,
+    screenContainer.width * 0.1,
+    screenContainer.height * 0.4
+  );
 };
 
 const drawSpeechBubble = (x, y, text) => {
