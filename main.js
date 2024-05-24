@@ -258,11 +258,10 @@ const updateTitle = () => {
   //);
   drawCloud();
 
-  canvas.context.globalAlpha = 1;
   drawGeneralMessage(
     5,
-    100,
-    "　　　　★ゲーム説明★\r\n　障害物に当たらないようにして　\r\n　手紙を届けよう！！　\r\n　画面をタップ(クリック)すると　\r\n　主人公のヒヨ丸が上昇します。　"
+    150,
+    "　　　　★ゲーム説明★\r\n　障害物に当たらないようにして　\r\n　手紙を届けよう！！　\r\n　画面をタップ(クリック)すると　\r\n　主人公のヒヨ丸が上昇します。　\r\n\r\n　画面をタップしてゲームスタート"
   );
 
   world.x++;
@@ -279,7 +278,7 @@ const updateGameOver = () => {
   drawGameOverMessage();
   if (controller.isPressed) {
     resetGame();
-    gameStatus.currentScene = scene.find((e) => e.name === "title");
+    gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
   }
 };
 
@@ -297,7 +296,7 @@ const updateStageClearBirdDown = () => {
   drawEnemy();
   drawCloud();
   bird.draw();
-  if (bird.y > bird.maxY) {
+  if (bird.y >= bird.maxY) {
     gameStatus.currentScene = scene.find(
       (e) => e.name === "stageClearJellySpeech"
     );
@@ -315,6 +314,7 @@ const updateStageClearJellySpeech = () => {
   canvas.context.globalAlpha = 1;
   drawSpeechBubble(200, 360, "お手紙ありがとう！！");
   bird.draw();
+  drawStageClearMessage();
   if (controller.isPressed) {
     gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
   }
@@ -695,7 +695,15 @@ const drawGameOverMessage = () => {
   canvas.context.drawImage(
     images.find((image) => image.name === "gameover").element,
     screenContainer.width * 0.1,
-    screenContainer.height * 0.4
+    screenContainer.height * 0.35
+  );
+
+  drawGeneralMessage(
+    5,
+    screenContainer.height * 0.5,
+    "画面をタップ(クリック)して再挑戦",
+    "lightpink",
+    "tomato"
   );
 };
 
@@ -713,7 +721,15 @@ const drawStageClearMessage = () => {
   canvas.context.drawImage(
     images.find((image) => image.name === "stageclear").element,
     screenContainer.width * 0.03,
-    screenContainer.height * 0.4
+    screenContainer.height * 0.35
+  );
+
+  drawGeneralMessage(
+    screenContainer.width * 0.03,
+    screenContainer.height * 0.5,
+    "画面をタップ(クリック)して次へ",
+    "aquamarine",
+    "mediumaquamarine"
   );
 };
 
@@ -771,7 +787,13 @@ const drawSpeechBubble = (x, y, text) => {
   canvas.context.fillText(text, x, y - bubbleHeight / 2);
 };
 
-const drawGeneralMessage = (x, y, text) => {
+const drawGeneralMessage = (
+  x,
+  y,
+  text,
+  fillStyle = "lightyellow",
+  strokeStyle = "burlywood"
+) => {
   const line = text.split("\r\n");
   const borderRadius = 10;
   const lineHight = 30;
@@ -781,8 +803,9 @@ const drawGeneralMessage = (x, y, text) => {
   const borderX = x;
   const borderY = y;
 
-  canvas.context.fillStyle = "lightyellow";
-  canvas.context.strokeStyle = "burlywood";
+  canvas.context.globalAlpha = 0.9;
+  canvas.context.fillStyle = fillStyle;
+  canvas.context.strokeStyle = strokeStyle;
   canvas.context.lineWidth = 1;
   canvas.context.beginPath();
   canvas.context.moveTo(borderX + borderRadius, borderY);
@@ -822,6 +845,7 @@ const drawGeneralMessage = (x, y, text) => {
   canvas.context.textAlign = "left";
   canvas.context.textBaseline = "top";
 
+  canvas.context.globalAlpha = 1;
   line.forEach((line, index) => {
     canvas.context.fillText(line, x + 5, y + 5 + lineHight * index);
   });
