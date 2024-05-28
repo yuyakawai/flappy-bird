@@ -288,6 +288,12 @@ const updateGameClear = () => {
 
 const updateStageClearBirdDown = () => {
   bird.y += bird.downSpeed;
+  if (bird.y >= bird.maxY) {
+    bird.y = bird.maxY;
+    gameStatus.currentScene = scene.find(
+      (e) => e.name === "stageClearJellySpeech"
+    );
+  }
   drawGround();
   drawMountain();
   drawStageStatus();
@@ -296,11 +302,6 @@ const updateStageClearBirdDown = () => {
   drawEnemy();
   drawCloud();
   bird.draw();
-  if (bird.y >= bird.maxY) {
-    gameStatus.currentScene = scene.find(
-      (e) => e.name === "stageClearJellySpeech"
-    );
-  }
 };
 
 const updateStageClearJellySpeech = () => {
@@ -496,7 +497,7 @@ const drawStageStatus = () => {
 
 const life = {
   max: 5,
-  count: 1,
+  count: 5,
   draw: () => {
     canvas.context.globalAlpha = 1;
     [...Array(life.max)].map((_, index) => {
@@ -712,8 +713,26 @@ const drawGameClearMessage = () => {
   canvas.context.drawImage(
     images.find((image) => image.name === "gameclear").element,
     screenContainer.width * 0.1,
-    screenContainer.height * 0.4
+    screenContainer.height * 0.35
   );
+
+  if (life.count === life.max) {
+    drawGeneralMessage(
+      screenContainer.width * 0.01,
+      screenContainer.height * 0.5,
+      "パーフェクトです！ 素晴らしい！！",
+      "lightcyan",
+      "mediumaquamarine"
+    );
+  } else {
+    drawGeneralMessage(
+      screenContainer.width * 0.1,
+      screenContainer.height * 0.5,
+      " ゲームクリア おめでとう！！",
+      "lightcyan",
+      "mediumaquamarine"
+    );
+  }
 };
 
 const drawStageClearMessage = () => {
@@ -725,10 +744,10 @@ const drawStageClearMessage = () => {
   );
 
   drawGeneralMessage(
-    screenContainer.width * 0.03,
+    screenContainer.width * 0.05,
     screenContainer.height * 0.5,
     "画面をタップ(クリック)して次へ",
-    "aquamarine",
+    "lightcyan",
     "mediumaquamarine"
   );
 };
