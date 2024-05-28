@@ -394,11 +394,22 @@ const drawGround = () => {
   canvas.context.fillStyle = stageData.find(
     (e) => e.stage === world.stage
   ).skyColor;
-  canvas.context.fillRect(0, 0, canvas.width, canvas.height * 0.8);
+  canvas.context.fillRect(0, 0, canvas.width, canvas.height);
+
   canvas.context.fillStyle = stageData.find(
     (e) => e.stage === world.stage
   ).groundColor;
   canvas.context.fillRect(0, canvas.height * 0.8, canvas.width, canvas.height);
+
+  canvas.context.fillStyle = stageData.find(
+    (e) => e.stage === world.stage
+  ).deepGroundColor;
+  canvas.context.fillRect(
+    0,
+    bird.maxY + bird.height * 0.9,
+    canvas.width,
+    canvas.height
+  );
   canvas.context.closePath();
 };
 
