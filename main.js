@@ -251,11 +251,11 @@ const updateTitle = () => {
   drawGround();
   drawMountain();
   drawEnemy();
-  //canvas.context.drawImage(
-  //  images.find((image) => image.name === "title").element,
-  //  70,
-  //  30
-  //);
+  canvas.context.drawImage(
+    images.find((image) => image.name === "title").element,
+    70,
+    30
+  );
   drawCloud();
 
   drawGeneralMessage(

@@ -10,7 +10,7 @@ export const stageData = [
   },
   {
     stage: 1,
-    stageGoalX: 1000,
+    stageGoalX: 2000,
     skyColor: "lightblue",
     groundColor: "green",
     deepGroundColor: "darkgreen",
