@@ -159,4 +159,24 @@ export const enemyData = [
       e.y += e.option.initSpeedY;
     },
   },
+  {
+    name: "hole",
+    width: 32,
+    height: 32,
+    collisionMargin: 0,
+    isRotateAnimation: false,
+    update: (e) => {
+      // empty
+    },
+  },
+  {
+    name: "construction_sign",
+    width: 32,
+    height: 32,
+    collisionMargin: 0,
+    isRotateAnimation: false,
+    update: (e) => {
+      // empty
+    },
+  },
 ];
