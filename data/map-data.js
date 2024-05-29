@@ -4,7 +4,7 @@ export const mapData = [
     type: "enemy",
     name: "scarecrow",
     x: 300,
-    y: 400,
+    y: 390,
     option: {
       // empty
     },
@@ -14,7 +14,7 @@ export const mapData = [
     type: "enemy",
     name: "jelly_blue",
     x: 600,
-    y: 400,
+    y: 390,
     option: {
       // empty
     },
@@ -24,7 +24,7 @@ export const mapData = [
     type: "enemy",
     name: "snowman",
     x: 900,
-    y: 400,
+    y: 390,
     option: {
       // empty
     },
