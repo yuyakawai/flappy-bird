@@ -199,8 +199,18 @@ export const mapData = [
   {
     stage: 2,
     type: "enemy",
+    name: "scarecrow",
+    x: 400,
+    y: 390,
+    option: {
+      isMove: false,
+    },
+  },
+  {
+    stage: 2,
+    type: "enemy",
     name: "jelly_blue",
-    x: 1100,
+    x: 2100,
     y: 400,
     option: {
       // empty
@@ -210,7 +220,7 @@ export const mapData = [
     stage: 2,
     type: "enemy",
     name: "mailbox",
-    x: 1140,
+    x: 2140,
     y: 400,
     option: {
       // empty
@@ -219,8 +229,18 @@ export const mapData = [
   {
     stage: 3,
     type: "enemy",
+    name: "scarecrow",
+    x: 400,
+    y: 390,
+    option: {
+      isMove: false,
+    },
+  },
+  {
+    stage: 3,
+    type: "enemy",
     name: "jelly_blue",
-    x: 1100,
+    x: 2100,
     y: 400,
     option: {
       // empty
@@ -230,7 +250,7 @@ export const mapData = [
     stage: 3,
     type: "enemy",
     name: "mailbox",
-    x: 1140,
+    x: 2140,
     y: 400,
     option: {
       // empty
@@ -239,8 +259,18 @@ export const mapData = [
   {
     stage: 4,
     type: "enemy",
+    name: "scarecrow",
+    x: 400,
+    y: 390,
+    option: {
+      isMove: false,
+    },
+  },
+  {
+    stage: 4,
+    type: "enemy",
     name: "jelly_blue",
-    x: 1100,
+    x: 2100,
     y: 400,
     option: {
       // empty
@@ -250,7 +280,7 @@ export const mapData = [
     stage: 4,
     type: "enemy",
     name: "mailbox",
-    x: 1140,
+    x: 2140,
     y: 400,
     option: {
       // empty
