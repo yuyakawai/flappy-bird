@@ -63,16 +63,6 @@ export const mapData = [
     stage: 1,
     type: "enemy",
     name: "scarecrow",
-    x: 1300,
-    y: 390,
-    option: {
-      isMove: false,
-    },
-  },
-  {
-    stage: 1,
-    type: "enemy",
-    name: "scarecrow",
     x: 1600,
     y: 390,
     option: {
@@ -124,6 +114,26 @@ export const mapData = [
     y: 240,
     option: {
       time: 0,
+    },
+  },
+  {
+    stage: 1,
+    type: "enemy",
+    name: "hole",
+    x: 1500,
+    y: 420,
+    option: {
+      time: 0,
+    },
+  },
+  {
+    stage: 1,
+    type: "enemy",
+    name: "jelly_gray",
+    x: 1540,
+    y: 400,
+    option: {
+      // empty
     },
   },
   {
