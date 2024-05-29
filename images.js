@@ -55,14 +55,20 @@ export const images = [
     isLoaded: false,
   },
   {
+    name: "heart_empty",
+    path: "image/heart_empty.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
     name: "heart_full",
     path: "image/heart_full.png",
     element: null,
     isLoaded: false,
   },
   {
-    name: "heart_empty",
-    path: "image/heart_empty.png",
+    name: "hole",
+    path: "image/hole.png",
     element: null,
     isLoaded: false,
   },
