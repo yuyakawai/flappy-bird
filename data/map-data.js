@@ -208,8 +208,15 @@ export const mapData = [
   },
   {
     stage: 2,
+    type: "message",
+    text: "ガンバルノダゾ",
+    x: 480,
+    y: 360,
+  },
+  {
+    stage: 2,
     type: "enemy",
-    name: "jelly_blue",
+    name: "jelly_green",
     x: 2100,
     y: 400,
     option: {
@@ -238,8 +245,15 @@ export const mapData = [
   },
   {
     stage: 3,
+    type: "message",
+    text: "ガンバルノダゾ",
+    x: 480,
+    y: 360,
+  },
+  {
+    stage: 3,
     type: "enemy",
-    name: "jelly_blue",
+    name: "jelly_pink",
     x: 2100,
     y: 400,
     option: {
@@ -268,8 +282,15 @@ export const mapData = [
   },
   {
     stage: 4,
+    type: "message",
+    text: "ガンバルノダゾ",
+    x: 480,
+    y: 360,
+  },
+  {
+    stage: 4,
     type: "enemy",
-    name: "jelly_blue",
+    name: "jelly_yellow",
     x: 2100,
     y: 400,
     option: {
