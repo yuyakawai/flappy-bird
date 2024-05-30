@@ -313,7 +313,7 @@ const updateStageClearJellySpeech = () => {
   drawEnemy();
   drawCloud();
   canvas.context.globalAlpha = 1;
-  drawSpeechBubble(200, 360, "お手紙ありがとう！！");
+  drawSpeechBubble(200, 380, "お手紙ありがとう！！");
   bird.draw();
   drawStageClearMessage();
   if (controller.isPressed) {
