@@ -284,6 +284,46 @@ export const mapData = [
   {
     stage: 2,
     type: "enemy",
+    name: "snowman",
+    x: 700,
+    y: 390,
+    option: {
+      isMove: false,
+    },
+  },
+  {
+    stage: 2,
+    type: "enemy",
+    name: "snowman",
+    x: 1000,
+    y: 390,
+    option: {
+      isMove: false,
+    },
+  },
+  {
+    stage: 2,
+    type: "enemy",
+    name: "snowman",
+    x: 1300,
+    y: 390,
+    option: {
+      isMove: false,
+    },
+  },
+  {
+    stage: 2,
+    type: "enemy",
+    name: "snowman",
+    x: 1600,
+    y: 390,
+    option: {
+      isMove: false,
+    },
+  },
+  {
+    stage: 2,
+    type: "enemy",
     name: "jelly_green",
     x: 2100,
     y: 400,
