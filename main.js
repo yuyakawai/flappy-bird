@@ -196,7 +196,7 @@ const loadImages = () => {
 };
 
 const world = {
-  stage: 1,
+  stage: 2,
   x: 0,
 };
 
