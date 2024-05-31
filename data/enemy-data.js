@@ -8,7 +8,8 @@ export const enemyData = [
     update: (e) => {
       if (e.option.isMove) {
         e.option.time++;
-        if (e.option.time > 1000) {
+        console.log(e.option.time);
+        if (e.option.time > 600) {
           e.option.initSpeedX += e.option.accelerationX;
           e.option.initSpeedY += e.option.accelerationY;
           e.x += e.option.initSpeedX;
