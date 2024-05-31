@@ -631,6 +631,7 @@ export const mapData = [
     y: 390,
     option: {
       isMove: true,
+      time: 0,
       initSpeedX: 0,
       initSpeedY: -13,
       accelerationX: 0,

@@ -7,11 +7,13 @@ export const enemyData = [
     isRotateAnimation: false,
     update: (e) => {
       if (e.option.isMove) {
-        e.option.initSpeedX += e.option.accelerationX;
-        e.option.initSpeedY += e.option.accelerationY;
-        e.x += e.option.initSpeedX;
-        e.y += e.option.initSpeedY;
-        e.y = Math.min(e.y, 400);
+        e.option.time++;
+        if (e.option.time > 1000) {
+          e.option.initSpeedX += e.option.accelerationX;
+          e.option.initSpeedY += e.option.accelerationY;
+          e.x += e.option.initSpeedX;
+          e.y += e.option.initSpeedY;
+        }
       }
     },
   },
