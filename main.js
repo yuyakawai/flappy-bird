@@ -196,7 +196,7 @@ const loadImages = () => {
 };
 
 const world = {
-  stage: 3,
+  stage: 2,
   x: 0,
 };
 
@@ -315,6 +315,11 @@ const updateStageClearJellySpeech = () => {
   canvas.context.globalAlpha = 1;
   drawSpeechBubble(200, 380, "お手紙ありがとう！！");
   bird.draw();
+
+  if (world.stage >= stageData.length - 1) {
+    gameStatus.currentScene = scene.find((e) => e.name === "gameClear");
+    return;
+  }
   drawStageClearMessage();
   if (controller.isPressed) {
     gameStatus.currentScene = scene.find((e) => e.name === "nextStageMove");
@@ -323,10 +328,6 @@ const updateStageClearJellySpeech = () => {
 
 const updateNextStageMove = () => {
   world.stage++;
-  if (world.stage >= stageData.length) {
-    gameStatus.currentScene = scene.find((e) => e.name === "gameClear");
-    return;
-  }
   world.x = 0;
   stageMessage.wait = 0;
   bird.resetPosition();
