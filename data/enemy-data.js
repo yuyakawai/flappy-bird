@@ -181,4 +181,17 @@ export const enemyData = [
       // empty
     },
   },
+  {
+    name: "bad_bird",
+    width: 32,
+    height: 32,
+    collisionMargin: 8,
+    isRotateAnimation: false,
+    update: (e) => {
+      e.option.time++;
+      if (e.option.time > e.option.startTime) {
+        e.x += e.option.speedX;
+      }
+    },
+  },
 ];
