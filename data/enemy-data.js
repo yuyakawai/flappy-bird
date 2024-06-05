@@ -21,7 +21,7 @@ export const enemyData = [
     name: "balloon_red",
     width: 32,
     height: 38,
-    collisionMargin: 0,
+    collisionMargin: 4,
     isRotateAnimation: false,
     update: (e) => {
       e.option.time++;
@@ -165,7 +165,7 @@ export const enemyData = [
     name: "hole",
     width: 32,
     height: 32,
-    collisionMargin: 0,
+    collisionMargin: 8,
     isRotateAnimation: false,
     update: (e) => {
       // empty
@@ -175,7 +175,7 @@ export const enemyData = [
     name: "construction_sign",
     width: 32,
     height: 32,
-    collisionMargin: 0,
+    collisionMargin: 4,
     isRotateAnimation: false,
     update: (e) => {
       // empty
