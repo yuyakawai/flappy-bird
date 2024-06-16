@@ -857,31 +857,7 @@ export const mapData = [
     type: "enemy",
     name: "bad_bird",
     x: 1800,
-    y: 25,
-    option: {
-      time: 0,
-      startTime: 1400,
-      speedX: -6,
-    },
-  },
-  {
-    stage: 3,
-    type: "enemy",
-    name: "bad_bird",
-    x: 1800,
     y: 125,
-    option: {
-      time: 0,
-      startTime: 1400,
-      speedX: -6,
-    },
-  },
-  {
-    stage: 3,
-    type: "enemy",
-    name: "bad_bird",
-    x: 1800,
-    y: 225,
     option: {
       time: 0,
       startTime: 1400,
