@@ -2,7 +2,7 @@ export const mapData = [
   {
     stage: 0,
     type: "enemy",
-    name: "scarecrow",
+    name: "bird_title",
     x: 300,
     y: 390,
     option: {
@@ -12,7 +12,17 @@ export const mapData = [
   {
     stage: 0,
     type: "enemy",
-    name: "jelly_blue",
+    name: "mailbox",
+    x: 340,
+    y: 390,
+    option: {
+      // empty
+    },
+  },
+  {
+    stage: 0,
+    type: "enemy",
+    name: "scarecrow",
     x: 600,
     y: 390,
     option: {
@@ -22,7 +32,7 @@ export const mapData = [
   {
     stage: 0,
     type: "enemy",
-    name: "snowman",
+    name: "jelly_blue",
     x: 900,
     y: 390,
     option: {
@@ -121,7 +131,7 @@ export const mapData = [
     type: "enemy",
     name: "construction_sign",
     x: 1260,
-    y: 390,
+    y: 395,
     option: {
       time: 0,
     },

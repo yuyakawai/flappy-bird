@@ -23,10 +23,15 @@ export const images = [
     element: null,
     isLoaded: false,
   },
-
   {
     name: "bird_damage",
     path: "image/bird_damage.png",
+    element: null,
+    isLoaded: false,
+  },
+  {
+    name: "bird_title",
+    path: "image/bird_title.png",
     element: null,
     isLoaded: false,
   },

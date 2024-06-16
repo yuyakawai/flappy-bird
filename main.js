@@ -196,7 +196,7 @@ const loadImages = () => {
 };
 
 const world = {
-  stage: 1,
+  stage: 0,
   x: 0,
 };
 
@@ -251,17 +251,17 @@ const updateTitle = () => {
   drawGround();
   drawMountain();
   drawEnemy();
+  canvas.context.globalAlpha = 1;
   canvas.context.drawImage(
     images.find((image) => image.name === "title").element,
-    70,
-    30
+    5,
+    50
   );
-  drawCloud();
 
   drawGeneralMessage(
     5,
     150,
-    "　　　　★ゲーム説明★\r\n　障害物に当たらないようにして　\r\n　手紙を届けよう！！　\r\n　画面をタップ(クリック)すると　\r\n　主人公のヒヨ丸が上昇します。　\r\n\r\n　画面をタップしてゲームスタート"
+    "　障害物に当たらないようにして　\r\n　手紙を届けよう！！　\r\n　画面をタップ(クリック)すると　\r\n　主人公のヒヨ丸が上昇します。　\r\n\r\n　画面をタップしてゲームスタート"
   );
 
   versionMessage.draw();
@@ -374,7 +374,7 @@ const updateGamePlay = () => {
 const versionMessage = {
   version: "ver.1.0.0",
   draw: () => {
-    canvas.context.globalAlpha = 0.8;
+    canvas.context.globalAlpha = 1;
     canvas.context.fillStyle = "black";
     canvas.context.font = "12px sans-serif";
     canvas.context.textAlign = "right";

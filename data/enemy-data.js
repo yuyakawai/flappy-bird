@@ -194,4 +194,14 @@ export const enemyData = [
       }
     },
   },
+  {
+    name: "bird_title",
+    width: 32,
+    height: 32,
+    collisionMargin: 0,
+    isRotateAnimation: false,
+    update: (e) => {
+      // empty
+    },
+  },
 ];
