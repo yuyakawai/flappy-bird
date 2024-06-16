@@ -879,6 +879,18 @@ export const mapData = [
   {
     stage: 3,
     type: "enemy",
+    name: "bad_bird",
+    x: 1800,
+    y: 225,
+    option: {
+      time: 0,
+      startTime: 1400,
+      speedX: -6,
+    },
+  },
+  {
+    stage: 3,
+    type: "enemy",
     name: "construction_sign",
     x: 1760,
     y: 390,
