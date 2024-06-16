@@ -510,16 +510,6 @@ export const mapData = [
   {
     stage: 2,
     type: "enemy",
-    name: "balloon_red",
-    x: 1800,
-    y: 150,
-    option: {
-      time: 0,
-    },
-  },
-  {
-    stage: 2,
-    type: "enemy",
     name: "snowman",
     x: 1900,
     y: 390,
