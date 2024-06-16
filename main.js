@@ -264,6 +264,8 @@ const updateTitle = () => {
     "　　　　★ゲーム説明★\r\n　障害物に当たらないようにして　\r\n　手紙を届けよう！！　\r\n　画面をタップ(クリック)すると　\r\n　主人公のヒヨ丸が上昇します。　\r\n\r\n　画面をタップしてゲームスタート"
   );
 
+  versionMessage.draw();
+
   world.x++;
   if (world.x > 1000) {
     world.x = 0;
@@ -367,6 +369,22 @@ const updateGamePlay = () => {
   if (bird.isDead === false) {
     world.x++;
   }
+};
+
+const versionMessage = {
+  version: "ver.1.0.0",
+  draw: () => {
+    canvas.context.globalAlpha = 0.8;
+    canvas.context.fillStyle = "black";
+    canvas.context.font = "12px sans-serif";
+    canvas.context.textAlign = "right";
+    canvas.context.textBaseline = "bottom";
+    canvas.context.fillText(
+      versionMessage.version,
+      screenContainer.width - 5,
+      15
+    );
+  },
 };
 
 const stageMessage = {
